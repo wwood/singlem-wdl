@@ -109,76 +109,16 @@ task singlem {
   }
   command <<<
     /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} --reverse ~{collections_of_sequences[1]} \
-      --archive_otu_table ~{srr_accession}.singlem.json --threads 8  --diamond-package-assignment --assignment-method diamond \
+      --archive_otu_table ~{srr_accession}.singlem.json --threads 2  --diamond-package-assignment --assignment-method diamond \
       --singlem-packages `ls -d /pkgs/*spkg` \
-     --working-directory-tmpdir
+     --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
     >>>
   runtime {
     docker: dockerImage
-    memory: "18 GiB"
-    cpu: 8
+    memory: "4 GiB"
+    cpu: 2
   }
   output {
-    File singlem_otu_table = "~{srr_accession}.singlem.json"
+    File singlem_otu_table_gz = "~{srr_accession}.singlem.json.gz"
   }
 }
-
-task test {
-  input { 
-    File? file
-    String dockerImage = "ubuntu"
-  } 
-  command {
-    cat ${file} >> out.txt
-  }
-  runtime {
-    docker: dockerImage
-  }
-  output {
-    File outfile = "out.txt"
-  }
-}
-
-task extract_archive {
-  input { 
-    File? zipped_file
-    String dockerImage = "ubuntu"
-  } 
-  command {
-    gunzip -f ${zipped_file}
-  }
-  runtime {
-    docker: dockerImage
-  }
-  output {
-    #File extracted_file = basename(zipped_file, ".gz")
-  }
-}
-
-
-
-task split {
-  input { 
-    File inputFastq
-    Array[String]+ outputPaths
-    String dockerImage = "quay.io/biocontainers/fastqsplitter:1.1.0--py37h516909a_1"
-  }
-  command <<<
-    set -e
-    for FILE in ~{sep=' ' outputPaths}
-    do
-       mkdir -p "$(dirname ${FILE})"
-    done
-    fastqsplitter \
-    -i ~{inputFastq} \
-    -o ~{sep=' -o ' outputPaths}
-  >>>
-  output {
-    Array[File] chunks = outputPaths
-  }
-  runtime {
-    docker: dockerImage
-  }
-}
-
-
