@@ -3,26 +3,32 @@ version 1.0
 workflow SingleM_SRA {
   input {
     File SRA_accession_list
+    String smallTaskQueueArn = "DUMMY_FOR_MINIWDL"
+    String singlemTaskQueueArn = "DUMMY_FOR_MINIWDL"
   }
   call get_run_from_runlist { 
     input: 
-      runlist = SRA_accession_list
+      runlist = SRA_accession_list,
+      queueArn = smallTaskQueueArn
     }
   scatter(SRA_accession_num in get_run_from_runlist.runarray) {
     call get_reads_from_run { 
       input: 
-        SRA_accession_num = SRA_accession_num
+        SRA_accession_num = SRA_accession_num,
+        queueArn = smallTaskQueueArn
     }
     scatter(download_path_suffix in get_reads_from_run.download_path_suffixes) {
       call download_ascp { 
         input: 
-          download_path_suffix = download_path_suffix
+          download_path_suffix = download_path_suffix,
+          queueArn = smallTaskQueueArn
       }
     }
     call singlem {
       input:
         collections_of_sequences = download_ascp.collection_of_sequences,
-        srr_accession = SRA_accession_num
+        srr_accession = SRA_accession_num,
+        queueArn = singlemTaskQueueArn
     }
   }
   output {
@@ -34,6 +40,7 @@ task get_run_from_runlist {
   input { 
     File runlist
     String dockerImage = "ubuntu"
+    String queueArn
   }
   command <<<
   echo 'hello'
@@ -43,6 +50,7 @@ task get_run_from_runlist {
   }
   runtime {
     docker: dockerImage
+    queueArn: queueArn
   }
 }
 
@@ -50,6 +58,7 @@ task get_reads_from_run {
   input { 
     String SRA_accession_num
     String dockerImage = "tutum/curl"
+    String queueArn
   }
   command <<<
     curl -k 'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=~{SRA_accession_num}&result=read_run&fields=fastq_ftp' \
@@ -61,6 +70,7 @@ task get_reads_from_run {
   }
   runtime {
     docker: dockerImage
+    queueArn: queueArn
   }
 }
 
@@ -69,6 +79,7 @@ task download_curl {
     String download_path_suffix
     String filename = basename(download_path_suffix)
     String dockerImage = "tutum/curl"
+    String queueArn
   }
   command <<<
     curl \
@@ -78,6 +89,7 @@ task download_curl {
     >>>
   runtime {
     docker: dockerImage
+    queueArn: queueArn
   }
   output {
     File extracted_read = basename(filename, ".gz")
@@ -89,12 +101,14 @@ task download_ascp {
     String download_path_suffix
     String filename = basename(download_path_suffix)
     String dockerImage = "mitchac/asperacli"
+    String queueArn
   }
   command <<<
     ascp -QT -l 300m -P33001 -i /root/.aspera/cli/etc/asperaweb_id_dsa.openssh era-fasp@fasp.sra.ebi.ac.uk:~{download_path_suffix} ~{filename}
     >>>
   runtime {
     docker: dockerImage
+    queueArn: queueArn
   }
   output {
     File collection_of_sequences = basename(filename)
@@ -105,7 +119,8 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
-    String dockerImage = "wwood/singlem:dev20210302.3" #"wwood/singlem:dev20210225"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev1.dc630726" #"wwood/singlem:dev20210225"
+    String queueArn
 
     String reverse_inputs = if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""
   }
@@ -121,6 +136,7 @@ task singlem {
     docker: dockerImage
     memory: "4 GiB"
     cpu: 2
+    queueArn: queueArn
   }
   output {
     File singlem_otu_table_gz = "~{srr_accession}.singlem.json.gz"
