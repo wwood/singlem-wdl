@@ -5,7 +5,7 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone --depth 1 --branch dev https://github.com/wwood/singlem && cd singlem && git checkout dc630726
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout dc630726
 RUN echo '__version__ = "0.13.2-dev1.dc630726"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
