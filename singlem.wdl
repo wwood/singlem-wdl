@@ -1,6 +1,6 @@
 version 1.0
 
-workflow hello {
+workflow SingleM_SRA {
   input {
     File SRA_accession_list
   }
@@ -26,7 +26,7 @@ workflow hello {
     }
   }
   output {
-    Array[File] SingleM_tables = select_all(singlem.singlem_otu_table)
+    Array[File] SingleM_tables = select_all(singlem.singlem_otu_table_gz)
   }
 }
 
@@ -105,14 +105,18 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
-    String dockerImage = "wwood/singlem:dev20210225"
+    String dockerImage = "wwood/singlem:dev20210302.3" #"wwood/singlem:dev20210225"
+
+    String reverse_inputs = if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""
   }
-  command <<<
-    /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} --reverse ~{collections_of_sequences[1]} \
-      --archive_otu_table ~{srr_accession}.singlem.json --threads 2  --diamond-package-assignment --assignment-method diamond \
+  command {
+    echo starting at `date` >&2 && \
+    /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} ~{reverse_inputs} \
+      --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
+      --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
      --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
-    >>>
+  }
   runtime {
     docker: dockerImage
     memory: "4 GiB"
