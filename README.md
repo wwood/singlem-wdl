@@ -58,4 +58,39 @@ ParameterKey=TemplateRootUrl,ParameterValue=$AWS_GWFCORE_TEMPLATE_ROOT_URL \
 --capabilities CAPABILITY_IAM
 ```
 
-public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev1.dc630726
+Up cromwell stack (costs $ once up)
+```
+~/git/singlem-wdl-local$ source export_cromwell_variables.bash
+$ aws cloudformation create-stack \
+--stack-name $AWS_CROMWELL_STACKNAME \
+--template-url $AWS_CROMWELL_TEMPLATE_URL \
+--parameters \
+ParameterKey=Namespace,ParameterValue=$AWS_CROMWELL_NAMESPACE \
+ParameterKey=GWFCoreNamespace,ParameterValue=$AWS_CROMWELL_GWFCORE_NAMESPACE \
+ParameterKey=VpcId,ParameterValue=$AWS_VPC_ID \
+ParameterKey=ServerSubnetID,ParameterValue=$AWS_VPC_SUBNET1_ID \
+ParameterKey=DBSubnetIDs,ParameterValue=$AWS_VPC_SUBNET1_ID\\,$AWS_VPC_SUBNET2_ID \
+ParameterKey=KeyName,ParameterValue=$AWS_CROMWELL_KEYNAME \
+ParameterKey=DBPassword,ParameterValue='$AWS_CROMWELL_DBPASSWORD' \
+--capabilities CAPABILITY_IAM
+```
+
+
+Once up, login to EC2 head node
+```
+aws ssm start-session --target i-058f9a582c5a12a17
+```
+```
+sudo yum update -y
+sudo yum install git -y
+git clone https://github.com/wwood/singlem-wdl
+cd singlem-wdl
+```
+
+```
+curl -X POST "http://localhost:8000/api/workflows/v1" \
+-H  "accept: application/json" \
+-F "workflowSource=@singlem.wdl" \
+-F "workflowInputs=@cromwell-configs/hello.json" \
+-F "workflowOptions=@cromwell-configs/options.json"
+```
