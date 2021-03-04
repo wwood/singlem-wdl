@@ -111,7 +111,8 @@ task singlem {
   }
   command {
     echo starting at `date` >&2 && \
-    /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} ~{reverse_inputs} \
+    /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} \
+      ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
       --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
       --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
