@@ -53,6 +53,7 @@ task get_reads_from_run {
   }
   command <<<
     curl -k 'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=~{SRA_accession_num}&result=read_run&fields=fastq_ftp' \
+    --silent --show-error \
     | grep -Po 'vol.*?fastq.gz' \
     > ftp.txt
   >>>
