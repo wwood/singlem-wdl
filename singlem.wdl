@@ -72,6 +72,7 @@ task download_curl {
   }
   command <<<
     curl \
+    --silent --show-error \
     -L \
     ftp://ftp.sra.ebi.ac.uk/~{download_path_suffix} -o ~{filename}
     gunzip -f ~{filename}
@@ -106,8 +107,6 @@ task singlem {
     Array[File] collections_of_sequences
     String srr_accession
     String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev1.dc630726" #"wwood/singlem:dev20210225"
-
-    String reverse_inputs = if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""
   }
   command {
     echo starting at `date` >&2 && \
