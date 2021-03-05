@@ -1,0 +1,3 @@
+{ 
+    "SingleM_SRA.SRA_accession_list": "s3://cmr-microbiome-workflow/runlists/runlist_test_cases_small"
+}
