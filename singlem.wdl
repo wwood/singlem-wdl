@@ -9,16 +9,20 @@ workflow SingleM_SRA {
       runlist = SRA_accession_list
     }
   scatter(SRA_accession_num in get_run_from_runlist.runarray) {
-    call get_reads_from_run { 
-      input: 
+    call download_and_extract_ncbi {
+      input:
         SRA_accession_num = SRA_accession_num
     }
-    scatter(download_path_suffix in get_reads_from_run.download_path_suffixes) {
-      call download_ascp { 
-        input: 
-          download_path_suffix = download_path_suffix
-      }
-    }
+    # call get_reads_from_run { 
+    #   input: 
+    #     SRA_accession_num = SRA_accession_num
+    # }
+    # scatter(download_path_suffix in get_reads_from_run.download_path_suffixes) {
+    #   call download_ascp { 
+    #     input: 
+    #       download_path_suffix = download_path_suffix
+    #   }
+    # }
     call singlem {
       input:
         collections_of_sequences = download_ascp.collection_of_sequences,
@@ -100,6 +104,23 @@ task download_ascp {
   }
   output {
     File collection_of_sequences = basename(filename)
+  }
+}
+
+task download_and_extract_ncbi {
+  input {
+    String SRA_accession_num
+    String dockerImage = "ncbi/sra-tools:2.10.9"
+  }
+  command {
+    prefetch ~{SRA_accession_num} && \
+    fasterq-dump --split-e -e 2 -m 1800MB ~{SRA_accession_num}
+  }
+  runtime {
+    docker: dockerImage
+  }
+  output {
+    File extracted_read = basename(filename, ".fastq")
   }
 }
 

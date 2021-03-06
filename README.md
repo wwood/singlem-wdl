@@ -61,6 +61,7 @@ ParameterKey=TemplateRootUrl,ParameterValue=$AWS_GWFCORE_TEMPLATE_ROOT_URL \
 Up cromwell stack (costs $ once up)
 ```
 ~/git/singlem-wdl-local$ source export_cromwell_variables.bash
+
 $ aws cloudformation create-stack \
 --stack-name $AWS_CROMWELL_STACKNAME \
 --template-url $AWS_CROMWELL_TEMPLATE_URL \
@@ -70,7 +71,6 @@ ParameterKey=GWFCoreNamespace,ParameterValue=$AWS_CROMWELL_GWFCORE_NAMESPACE \
 ParameterKey=VpcId,ParameterValue=$AWS_VPC_ID \
 ParameterKey=ServerSubnetID,ParameterValue=$AWS_VPC_SUBNET1_ID \
 ParameterKey=DBSubnetIDs,ParameterValue=$AWS_VPC_SUBNET1_ID\\,$AWS_VPC_SUBNET2_ID \
-ParameterKey=KeyName,ParameterValue=$AWS_CROMWELL_KEYNAME \
 ParameterKey=DBPassword,ParameterValue='$AWS_CROMWELL_DBPASSWORD' \
 --capabilities CAPABILITY_IAM
 ```
@@ -91,6 +91,33 @@ cd singlem-wdl
 curl -X POST "http://localhost:8000/api/workflows/v1" \
 -H  "accept: application/json" \
 -F "workflowSource=@singlem.wdl" \
--F "workflowInputs=@cromwell-configs/hello.json" \
+-F "workflowInputs=@cromwell-configs/runlist_sampled10.json" \
 -F "workflowOptions=@cromwell-configs/options.json"
 ```
+
+# Building the Docker images
+For the singlem one
+
+```
+$ docker build .
+$ 
+```
+
+# Workflow stuff
+List running workflows
+```
+
+```
+
+Abort
+```
+curl -X POST "http://localhost:8000/api/workflows/v1/<id>/abort
+```
+
+
+3.9 stays runnable
+3.4 works
+3.7 seems fail as 3.9
+3.5 works
+
+Running sample10 using old docker, and new docker with \time on the singlem, so I can get a better sense of memory.
