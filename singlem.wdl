@@ -120,7 +120,8 @@ task singlem {
   }
   runtime {
     docker: dockerImage
-    memory: "3.9 GiB"
+    # When using 3.7 GiB or more, jobs stay in runnable on AWS batch when c5.large is the only available instance.
+    memory: "3.5 GiB"
     cpu: 2
   }
   output {
