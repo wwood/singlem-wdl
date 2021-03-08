@@ -107,16 +107,17 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
-    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev2.dc630726" #"wwood/singlem:dev20210225"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev3.3e508be" #"wwood/singlem:dev20210225"
   }
   command {
     echo starting at `date` >&2 && \
-    /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe --forward ~{collections_of_sequences[0]} \
+    /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
+      --forward ~{collections_of_sequences[0]} \
       ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
       --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
       --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
-     --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
+      --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
   }
   runtime {
     docker: dockerImage
