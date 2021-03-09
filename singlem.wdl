@@ -25,7 +25,7 @@ workflow SingleM_SRA {
     # }
     call singlem {
       input:
-        collections_of_sequences = download_ascp.collection_of_sequences,
+        collections_of_sequences = download_and_extract_ncbi.extracted_reads,
         srr_accession = SRA_accession_num
     }
   }
@@ -110,17 +110,17 @@ task download_ascp {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
-    String dockerImage = "ncbi/sra-tools:2.10.9"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev1"
   }
   command {
     prefetch ~{SRA_accession_num} && \
-    fasterq-dump --split-e -e 2 -m 1800MB ~{SRA_accession_num}
+    fasterq-dump -e 2 -m 1800MB ~{SRA_accession_num}
   }
   runtime {
     docker: dockerImage
   }
   output {
-    File extracted_read = basename(filename, ".fastq")
+    Array[File] extracted_reads = glob("*.fastq")
   }
 }
 
