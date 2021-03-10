@@ -1,12 +1,16 @@
-FROM ubuntu:20.10
+FROM continuumio/miniconda3:latest
+ENV USER=root
+RUN apt update && \
+      apt-get install -y curl unzip && \
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+      unzip awscliv2.zip && \
+      ./aws/install
+      
+RUN conda create -c conda-forge -c bioconda -c defaults -n env python git extern pigz sra-tools
+RUN echo "source activate env" > ~/.bashrc
+ENV PATH /opt/conda/envs/env/bin:$PATH
 
-RUN apt-get update
-RUN apt-get -y install wget
-RUN wget https://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/2.10.9/sratoolkit.2.10.9-ubuntu64.tar.gz
-
-RUN tar xf sratoolkit.2.10.9-ubuntu64.tar.gz
-ENV PATH="sratoolkit.2.10.9-ubuntu64/bin:$PATH"
-RUN cd /usr/bin && ln -s /sratoolkit.2.10.9-ubuntu64/bin/* .
+RUN git clone https://github.com/wwood/ena-fast-download && cd ena-fast-download && git checkout d54bbd03
 
 RUN mkdir /root/.ncbi 
 ADD user-settings.mkfg /root/.ncbi
