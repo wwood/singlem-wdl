@@ -114,10 +114,10 @@ Abort
 curl -X POST "http://localhost:8000/api/workflows/v1/<id>/abort
 ```
 
+Currently running sample10 using old docker, and new docker with \time on the singlem, so I can get a better sense of memory.
 
-3.9 stays runnable
-3.4 works
-3.7 seems fail as 3.9
-3.5 works
+# Testing locally with miniwdl
 
-Running sample10 using old docker, and new docker with \time on the singlem, so I can get a better sense of memory.
+```
+(/home/ben/e/miniwdl-1.1.1) b2:20210310:~/git/singlem-wdl-local$ miniwdl run --verbose singlem.wdl SRA_accession_list=runlists/runlist_small_single_reads
+```
