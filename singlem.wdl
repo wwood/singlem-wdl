@@ -112,15 +112,18 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev1"
   }
-  command {
+  # TODO: Switch to fasterq-dump, because it's faster? However, cannot directly output FASTA so need to convert
+  # fasterq-dump -e 2 -m 1800MB ~{SRA_accession_num}
+  # TODO: Switch to using ascp rather than http by changing the docker image. Not sure how that changes what happens in the cloud.
+  command <<<
     prefetch ~{SRA_accession_num} && \
-    fasterq-dump -e 2 -m 1800MB ~{SRA_accession_num}
-  }
+    fastq-dump --fasta default ~{SRA_accession_num} 
+  >>>
   runtime {
     docker: dockerImage
   }
   output {
-    Array[File] extracted_reads = glob("*.fastq")
+    Array[File] extracted_reads = glob("*.fasta")
   }
 }
 
