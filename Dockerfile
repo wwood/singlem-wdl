@@ -5,8 +5,8 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout a56ae433
-RUN echo '__version__ = "0.13.2-dev4.a56ae433"' >singlem/singlem/version.py
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 39b924d5
+RUN echo '__version__ = "0.13.2-dev5.39b924d5"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
