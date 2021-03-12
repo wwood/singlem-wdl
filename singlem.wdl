@@ -131,7 +131,7 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
-    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev3.3e508be" #"wwood/singlem:dev20210225"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev4.a56ae433" #"wwood/singlem:dev20210225"
   }
   command {
     echo starting at `date` >&2 && \
