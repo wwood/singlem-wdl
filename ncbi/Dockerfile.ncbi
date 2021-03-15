@@ -11,6 +11,3 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 RUN git clone https://github.com/wwood/ena-fast-download && cd ena-fast-download && git checkout d54bbd03
-
-RUN mkdir /root/.ncbi 
-ADD user-settings.mkfg /root/.ncbi
