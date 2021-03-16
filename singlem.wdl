@@ -54,7 +54,7 @@ task download_and_extract_ncbi {
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}  
-    aws --version
+    aws s3 cp s3://sra-pub-run-odp/sra/~{SRA_accession_num}/~{SRA_accession_num} .
   >>>
   runtime {
     docker: dockerImage
