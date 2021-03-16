@@ -46,7 +46,7 @@ task download_and_extract_ncbi {
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev2"
   }
   command <<<
-    ncbi-download.py --download-method aws-cp extraction-method fasterq-dump ~{SRA_accession_num}
+    python ena-fast-download/ncbi-download.py --download-method aws-cp --extraction-method fasterq-dump ~{SRA_accession_num}
   >>>
   runtime {
     docker: dockerImage
