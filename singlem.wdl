@@ -47,7 +47,7 @@ task get_run_from_runlist {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
-    dockerImage = "amazon/aws-cli:latest" 
+    String dockerImage = "amazon/aws-cli:latest" 
     String AWS_User_Key_Id
     String AWS_User_Key
   }
