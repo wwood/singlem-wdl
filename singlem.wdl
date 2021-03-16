@@ -54,7 +54,7 @@ task download_and_extract_ncbi {
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}  
-    aws s3 ls > test.txt
+    aws --version
   >>>
   runtime {
     docker: dockerImage
