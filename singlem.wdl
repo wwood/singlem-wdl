@@ -54,7 +54,8 @@ task download_and_extract_ncbi {
   command <<<
     aws configure set aws_access_key_id ~{AWS_User_Key_Id}
     aws configure set aws_secret_access_key ~{AWS_User_Key}  
-    python ena-fast-download/ncbi-download.py --download-method aws-cp --extraction-method fasterq-dump ~{SRA_accession_num}
+    aws s3 ls
+    #python ena-fast-download/ncbi-download.py --download-method aws-cp --extraction-method fasterq-dump ~{SRA_accession_num}
   >>>
   runtime {
     docker: dockerImage
