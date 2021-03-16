@@ -3,6 +3,8 @@ version 1.0
 workflow SingleM_SRA {
   input {
     File SRA_accession_list
+    String AWS_User_Key_Id
+    String AWS_User_Key
   }
   call get_run_from_runlist { 
     input: 
@@ -12,6 +14,8 @@ workflow SingleM_SRA {
     call download_and_extract_ncbi {
       input:
         SRA_accession_num = SRA_accession_num
+	AWS_User_Key_Id = AWS_User_Key_Id
+	AWS_User_Key = AWS_User_Key
     }
     call singlem {
       input:
@@ -44,8 +48,12 @@ task download_and_extract_ncbi {
   input {
     String SRA_accession_num
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev2"
+    String AWS_User_Key_Id
+    String AWS_User_Key
   }
   command <<<
+    aws configure set aws_access_key_id ~{AWS_User_Key_Id}
+    aws configure set aws_secret_access_key ~{AWS_User_Key}  
     python ena-fast-download/ncbi-download.py --download-method aws-cp --extraction-method fasterq-dump ~{SRA_accession_num}
   >>>
   runtime {
