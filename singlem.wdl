@@ -13,8 +13,8 @@ workflow SingleM_SRA {
   scatter(SRA_accession_num in get_run_from_runlist.runarray) {
     call download_and_extract_ncbi {
       input:
-        SRA_accession_num = SRA_accession_num
-	AWS_User_Key_Id = AWS_User_Key_Id
+        SRA_accession_num = SRA_accession_num,
+	AWS_User_Key_Id = AWS_User_Key_Id,
 	AWS_User_Key = AWS_User_Key
     }
     call singlem {
