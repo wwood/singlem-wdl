@@ -52,8 +52,8 @@ task download_and_extract_ncbi {
     String AWS_User_Key
   }
   command <<<
-    aws configure set aws_access_key_id ~{AWS_User_Key_Id}
-    aws configure set aws_secret_access_key ~{AWS_User_Key}  
+    export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
+    export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}  
     aws s3 ls > test.txt
   >>>
   runtime {
