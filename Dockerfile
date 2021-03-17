@@ -1,6 +1,6 @@
 FROM continuumio/miniconda3
 # Don't need all of the dependencies of singlem, because only pipe is going to be run.
-RUN conda create -c conda-forge -c bioconda -c defaults -n env python diamond=2.0.7 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time
+RUN conda create -c conda-forge -c bioconda -c defaults -n env python diamond=2.0.8 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time
 RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
