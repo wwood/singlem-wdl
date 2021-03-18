@@ -47,20 +47,20 @@ task get_run_from_runlist {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev2"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev3"
     String AWS_User_Key_Id
     String AWS_User_Key
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}  
-    python /ena-fast-download/ncbi-download.py --download-method aws-cp --extraction-method fasterq-dump ~{SRA_accession_num}
+    python /ena-fast-download/ncbi-download.py --download-method aws-cp --allow-paid ~{SRA_accession_num}
   >>>
   runtime {
     docker: dockerImage
   }
   output {
-    Array[File] extracted_reads = glob("*.fasta.gz")
+    Array[File] extracted_reads = glob("*.fastq")
   }
 }
 
@@ -68,7 +68,7 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
-    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev5.39b924d5"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev6.cfd1521a"
   }
   command {
     echo starting at `date` >&2 && \
@@ -76,6 +76,7 @@ task singlem {
       --forward ~{collections_of_sequences[0]} \
       ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
       --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
+      --diamond-prefilter-performance-parameters '--block-size 0.45' \
       --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
       --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
