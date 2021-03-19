@@ -72,6 +72,7 @@ task singlem {
   }
   command {
     echo starting at `date` >&2 && \
+    cat /proc/meminfo >&2 && \
     /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
       --forward ~{collections_of_sequences[0]} \
       ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
