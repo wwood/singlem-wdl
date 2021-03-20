@@ -3,7 +3,7 @@ version 1.0
 workflow SingleM_SRA {
   input {
     File SRA_accession_list
-    String Data_Source
+    Boolean Data_From_s3
     String AWS_User_Key_Id
     String AWS_User_Key
   }
@@ -12,7 +12,7 @@ workflow SingleM_SRA {
       runlist = SRA_accession_list
     }
   scatter(SRA_accession_num in get_run_from_runlist.runarray) {
-    if(Data_Source) { 
+    if(Data_From_s3) { 
       call download_and_extract_ncbi_s3 {
         input:
           SRA_accession_num = SRA_accession_num,
@@ -20,7 +20,7 @@ workflow SingleM_SRA {
           AWS_User_Key = AWS_User_Key
       }
     }
-    if(!Data_Source) {              
+    if(!Data_From_s3) {              
       call download_and_extract_ncbi {
         input: 
           SRA_accession_num = SRA_accession_num 
