@@ -23,7 +23,7 @@ workflow SingleM_SRA {
     if(Data_Source="ncbi") {              
       call download_and_extract_ncbi {
         input: 
-          SRA_accession_num = SRA_accession_num, 
+          SRA_accession_num = SRA_accession_num 
       }
     }
     call singlem {
