@@ -4,8 +4,8 @@ workflow SingleM_SRA {
   input {
     File SRA_accession_list
     Boolean Data_From_s3
-    String AWS_User_Key_Id
-    String AWS_User_Key
+    String AWS_User_Key_Id = ""
+    String AWS_User_Key = ""
   }
   call get_run_from_runlist { 
     input: 
