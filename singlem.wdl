@@ -59,11 +59,16 @@ task download_and_extract_ncbi_s3 {
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev3"
     String AWS_User_Key_Id
     String AWS_User_Key
+    Boolean run_local = false
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
-    export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}  
-    python /ena-fast-download/ncbi-download.py --download-method aws-cp --allow-paid ~{SRA_accession_num}
+    export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
+    ~{if run_local then
+    "python /ena-fast-download/ncbi-download.py --download-method prefetch ~{SRA_accession_num}"
+    else
+    "python /ena-fast-download/ncbi-download.py --download-method aws-cp --allow-paid ~{SRA_accession_num}"
+    }
   >>>
   runtime {
     docker: dockerImage
