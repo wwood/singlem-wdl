@@ -115,7 +115,7 @@ task singlem {
       --diamond-prefilter-performance-parameters '--block-size 0.45' \
       --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
-      --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
+      --working-directory /tmp/working && gzip ~{srr_accession}.singlem.json
   }
   runtime {
     docker: dockerImage
