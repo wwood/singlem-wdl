@@ -108,7 +108,7 @@ task singlem {
     echo starting at `date` >&2 && \
     cat /proc/meminfo >&2 && \
     lscpu >&2 && \
-    /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
+    /singlem/bin/singlem pipe \
       --forward ~{collections_of_sequences[0]} \
       ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
       --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
