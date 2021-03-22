@@ -106,7 +106,12 @@ $
 # Workflow stuff
 List running workflows
 ```
+curl "http://localhost:8000/api/workflows/v1/query"
+```
 
+Status
+```
+curl http://localhost:8000//api/workflows/v1/<id>/status
 ```
 
 Abort
