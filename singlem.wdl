@@ -111,7 +111,7 @@ task singlem {
     /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
       --forward ~{collections_of_sequences[0]} \
       ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
-      --archive_otu_table ~{srr_accession}.singlem.json --threads 2 --diamond-package-assignment --assignment-method diamond \
+      --archive_otu_table ~{srr_accession}.singlem.json --threads 1 --diamond-package-assignment --assignment-method diamond \
       --diamond-prefilter-performance-parameters '--block-size 0.45' \
       --min_orf_length 72 \
       --singlem-packages `ls -d /pkgs/*spkg` \
