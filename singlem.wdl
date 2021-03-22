@@ -3,7 +3,7 @@ version 1.0
 workflow SingleM_SRA {
   input {
     File SRA_accession_list
-    Boolean Data_From_s3
+    Boolean Data_From_s3 = true
     String AWS_User_Key_Id = ""
     String AWS_User_Key = ""
   }
@@ -12,19 +12,12 @@ workflow SingleM_SRA {
       runlist = SRA_accession_list
     }
   scatter(SRA_accession_num in get_run_from_runlist.runarray) {
-    if(Data_From_s3) { 
-      call download_and_extract_ncbi_s3 {
-        input:
-          SRA_accession_num = SRA_accession_num,
-          AWS_User_Key_Id = AWS_User_Key_Id,
-          AWS_User_Key = AWS_User_Key
-      }
-    }
-    if(!Data_From_s3) {              
-      call download_and_extract_ncbi {
-        input: 
-          SRA_accession_num = SRA_accession_num 
-      }
+    call download_and_extract_ncbi {
+      input:
+        SRA_accession_num = SRA_accession_num,
+        AWS_User_Key_Id = AWS_User_Key_Id,
+        AWS_User_Key = AWS_User_Key,
+        run_local = !Data_From_s3
     }
     call singlem {
       input:
@@ -53,13 +46,13 @@ task get_run_from_runlist {
   }
 }
 
-task download_and_extract_ncbi_s3 {
+task download_and_extract_ncbi {
   input {
     String SRA_accession_num
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev3"
     String AWS_User_Key_Id
     String AWS_User_Key
-    Boolean run_local = false
+    Boolean run_local
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
@@ -75,26 +68,6 @@ task download_and_extract_ncbi_s3 {
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
-  }
-}
-
-task download_and_extract_ncbi {
-  input {
-    String SRA_accession_num
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev1"
-  }
-  # TODO: Switch to fasterq-dump, because it's faster? However, cannot directly output FASTA so need to convert
-  # fasterq-dump -e 2 -m 1800MB ~{SRA_accession_num}
-  # TODO: Switch to using ascp rather than http by changing the docker image. Not sure how that changes what happens in the cloud.
-  command <<<
-    prefetch ~{SRA_accession_num} && \
-    fastq-dump --fasta default ~{SRA_accession_num} 
-  >>>
-  runtime {
-    docker: dockerImage
-  }
-  output {
-    Array[File] extracted_reads = glob("*.fasta")
   }
 }
 
