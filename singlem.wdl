@@ -26,7 +26,7 @@ workflow SingleM_SRA {
     }
   }
   output {
-    Array[File] SingleM_tables = select_all(singlem.singlem_otu_table_gz)
+    Array[File?] SingleM_tables = select_all(singlem.singlem_otu_table_gz)
   }
 }
 
