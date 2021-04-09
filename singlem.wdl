@@ -53,7 +53,7 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Methods
     File GCloud_User_Key_File
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev3"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev4"
     String AWS_User_Key_Id
     String AWS_User_Key
   }
@@ -61,7 +61,7 @@ task download_and_extract_ncbi {
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
     ~{
-    "python /ena-fast-download/ncbi-download.py --download-method ~{Download_Methods} ~{SRA_accession_num}"
+    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --output-format-possibilities fastq -m ~{Download_Methods}"
     }
   >>>
   runtime {
