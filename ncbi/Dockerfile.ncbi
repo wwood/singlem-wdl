@@ -6,7 +6,7 @@ RUN apt update && \
       unzip awscliv2.zip && \
       ./aws/install
       
-RUN conda create -c conda-forge -c bioconda -c defaults -n env python git extern pigz sra-tools
+RUN conda create -c conda-forge -c bioconda -c defaults -n env python git extern pigz sra-tools google-cloud-sdk
 RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
