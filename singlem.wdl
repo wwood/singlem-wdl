@@ -3,7 +3,8 @@ version 1.0
 workflow SingleM_SRA {
   input {
     File SRA_accession_list
-    Boolean Data_From_s3 = true
+    String Download_Methods = ""
+    File GCloud_User_Key_File
     String AWS_User_Key_Id = ""
     String AWS_User_Key = ""
   }
@@ -15,9 +16,10 @@ workflow SingleM_SRA {
     call download_and_extract_ncbi {
       input:
         SRA_accession_num = SRA_accession_num,
+        GCloud_User_Key_File = GCloud_User_Key_File,
         AWS_User_Key_Id = AWS_User_Key_Id,
         AWS_User_Key = AWS_User_Key,
-        run_local = !Data_From_s3
+        Download_Methods = Download_Methods
     }
     call singlem {
       input:
@@ -49,18 +51,17 @@ task get_run_from_runlist {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
+    String Download_Methods
+    File GCloud_User_Key_File
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev3"
     String AWS_User_Key_Id
     String AWS_User_Key
-    Boolean run_local
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
-    ~{if run_local then
-    "python /ena-fast-download/ncbi-download.py --download-method prefetch ~{SRA_accession_num}"
-    else
-    "python /ena-fast-download/ncbi-download.py --download-method aws-cp --allow-paid ~{SRA_accession_num}"
+    ~{
+    "python /ena-fast-download/ncbi-download.py --download-method ~{Download_Methods} ~{SRA_accession_num}"
     }
   >>>
   runtime {
