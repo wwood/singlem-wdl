@@ -56,7 +56,7 @@ task download_and_extract_ncbi {
     String Download_Method_Order
     File GCloud_User_Key_File
     String GCloud_Project_ID
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev4"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev5"
     String AWS_User_Key_Id
     String AWS_User_Key
   }
