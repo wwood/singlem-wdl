@@ -56,15 +56,16 @@ task download_and_extract_ncbi {
     String Download_Method_Order
     File GCloud_User_Key_File
     String GCloud_Project_ID
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev5"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev6"
     String AWS_User_Key_Id
     String AWS_User_Key
+    String kingfisher_extra_args="--allow-paid-from-gcp"
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
     ~{
-    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --gcp-project ~{GCloud_Project_ID} --output-format-possibilities fastq -m ~{Download_Method_Order}"
+    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --output-format-possibilities fastq -m ~{Download_Method_Order} ~{kingfisher_extra_args}"
     }
   >>>
   runtime {
