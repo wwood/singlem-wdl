@@ -5,6 +5,7 @@ workflow SingleM_SRA {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
+    Boolean? GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
   }
@@ -12,6 +13,7 @@ workflow SingleM_SRA {
     input:
       SRA_accession_num = SRA_accession_num,
       GCloud_User_Key_File = GCloud_User_Key_File,
+      Boolean? GCloud_Paid,
       AWS_User_Key_Id = AWS_User_Key_Id,
       AWS_User_Key = AWS_User_Key,
       Download_Method_Order = Download_Method_Order
@@ -31,15 +33,16 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
+    Boolean? GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev5"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev6"
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
     ~{
-    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --output-format-possibilities fastq -m ~{Download_Method_Order}"
+    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --output-format-possibilities fastq -m ~{Download_Method_Order} ~{kingfisher_extra_args}"
     }
   >>>
   runtime {
