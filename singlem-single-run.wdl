@@ -39,7 +39,7 @@ task download_and_extract_ncbi {
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
     export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
     ~{
-    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --gcp-project ~{GCloud_Project_ID} --output-format-possibilities fastq -m ~{Download_Method_Order}"
+    "python /ena-fast-download/bin/kingfisher -r ~{SRA_accession_num} --gcp-user-key-file ~{GCloud_User_Key_File} --output-format-possibilities fastq -m ~{Download_Method_Order}"
     }
   >>>
   runtime {
