@@ -30,11 +30,10 @@ task download_and_extract_ncbi {
   input {
     String SRA_accession_num
     String Download_Method_Order
-    File GCloud_User_Key_File
-    String GCloud_Project_ID
+    File? GCloud_User_Key_File
+    String? AWS_User_Key_Id
+    String? AWS_User_Key
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev5"
-    String AWS_User_Key_Id
-    String AWS_User_Key
   }
   command <<<
     export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
