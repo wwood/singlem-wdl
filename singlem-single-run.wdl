@@ -41,7 +41,7 @@ task download_and_extract_ncbi {
   command {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
-      --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then ~{GCloud_User_Key_File} else "undefined"} \
+      --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
       --output-format-possibilities fastq \
       -m ~{Download_Method_Order}
   }
