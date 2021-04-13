@@ -13,7 +13,7 @@ workflow SingleM_SRA {
     input:
       SRA_accession_num = SRA_accession_num,
       GCloud_User_Key_File = GCloud_User_Key_File,
-      Boolean? GCloud_Paid,
+      Boolean GCloud_Paid,
       AWS_User_Key_Id = AWS_User_Key_Id,
       AWS_User_Key = AWS_User_Key,
       Download_Method_Order = Download_Method_Order
