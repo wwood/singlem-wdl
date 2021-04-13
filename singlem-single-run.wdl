@@ -38,17 +38,13 @@ task download_and_extract_ncbi {
     String? AWS_User_Key
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev6"
   }
-  command <<<
-    export AWS_ACCESS_KEY_ID=~{AWS_User_Key_Id}
-    export AWS_SECRET_ACCESS_KEY=~{AWS_User_Key}
-    ~{
+  command {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
       --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then ~{GCloud_User_Key_File} else "undefined"} \
       --output-format-possibilities fastq \
-      -m ~{Download_Method_Order}"
-    }
-  >>>
+      -m ~{Download_Method_Order}
+  }
   runtime {
     docker: dockerImage
   }
