@@ -36,7 +36,7 @@ task download_and_extract_ncbi {
     Boolean? GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev6"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
   }
   command {
     python /ena-fast-download/bin/kingfisher \
