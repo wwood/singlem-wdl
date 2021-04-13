@@ -3,16 +3,15 @@ version 1.0
 workflow SingleM_SRA {
   input {
     String SRA_accession_num
-    String Download_Method_Order = ""
-    File GCloud_User_Key_File
-    String AWS_User_Key_Id = ""
-    String AWS_User_Key = ""
+    String Download_Method_Order
+    File? GCloud_User_Key_File
+    String? AWS_User_Key_Id
+    String? AWS_User_Key
   }
   call download_and_extract_ncbi {
     input:
       SRA_accession_num = SRA_accession_num,
       GCloud_User_Key_File = GCloud_User_Key_File,
-      GCloud_Project_ID = GCloud_Project_ID,
       AWS_User_Key_Id = AWS_User_Key_Id,
       AWS_User_Key = AWS_User_Key,
       Download_Method_Order = Download_Method_Order
