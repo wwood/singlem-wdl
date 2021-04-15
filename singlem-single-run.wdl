@@ -57,6 +57,8 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
+    String memory = "3.5 GiB"
+    String disks = "local-disk 50 SSD"
     String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev7.2c824562"
   }
   command {
@@ -77,8 +79,8 @@ task singlem {
   }
   runtime {
     docker: dockerImage
-    # When using 3.7 GiB or more, jobs stay in runnable on AWS batch when c5.large is the only available instance.
-    memory: "3.5 GiB"
+    memory: memory
+    disks: disks
     cpu: 2
   }
   output {
