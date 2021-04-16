@@ -33,7 +33,7 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
-    Boolean? GCloud_Paid
+    Boolean GCloud_Paid = 'false'
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
@@ -42,6 +42,7 @@ task download_and_extract_ncbi {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
       --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
+      ~{if (GCloud_Paid) then "--allow-paid-from-gcp" else ""} \
       --output-format-possibilities fastq \
       -m ~{Download_Method_Order}
   }
@@ -57,6 +58,8 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
+    String memory = "3.5 GiB"
+    String disks = "local-disk 50 SSD"
     String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev7.2c824562"
   }
   command {
@@ -77,8 +80,8 @@ task singlem {
   }
   runtime {
     docker: dockerImage
-    # When using 3.7 GiB or more, jobs stay in runnable on AWS batch when c5.large is the only available instance.
-    memory: "3.5 GiB"
+    memory: memory
+    disks: disks
     cpu: 2
   }
   output {
