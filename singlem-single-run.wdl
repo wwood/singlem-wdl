@@ -33,7 +33,7 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
-    Boolean? GCloud_Paid = 'false'
+    Boolean GCloud_Paid = 'false'
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
@@ -42,7 +42,7 @@ task download_and_extract_ncbi {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
       --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
-      ~{if (GCloud_Paid = 'true') then ("--allow-paid-from-gcp") else ""} \
+      ~{if (GCloud_Paid) then "--allow-paid-from-gcp" else ""} \
       --output-format-possibilities fastq \
       -m ~{Download_Method_Order}
   }
