@@ -33,7 +33,7 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
-    Boolean? GCloud_Paid = FALSE
+    Boolean? GCloud_Paid = 'false'
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
