@@ -36,6 +36,7 @@ task download_and_extract_ncbi {
     Boolean GCloud_Paid = 'false'
     String? AWS_User_Key_Id
     String? AWS_User_Key
+    String disks = "local-disk 50 SSD"
     String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
   }
   command {
@@ -48,6 +49,7 @@ task download_and_extract_ncbi {
   }
   runtime {
     docker: dockerImage
+    disks: disks
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
