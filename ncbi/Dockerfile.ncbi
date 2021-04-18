@@ -10,4 +10,4 @@ RUN conda create -c conda-forge -c bioconda -c defaults -n env python git extern
 RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
-RUN git clone https://github.com/wwood/ena-fast-download && cd ena-fast-download && git checkout 70c0b58c
+RUN git clone https://github.com/wwood/ena-fast-download && cd ena-fast-download && git checkout 11e56131

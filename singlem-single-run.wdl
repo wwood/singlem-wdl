@@ -37,7 +37,7 @@ task download_and_extract_ncbi {
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String disks = "local-disk 50 SSD"
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev7"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev8.11e56131"
   }
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -62,7 +62,7 @@ task singlem {
     String srr_accession
     String memory = "3.5 GiB"
     String disks = "local-disk 50 SSD"
-    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev7.2c824562"
+    String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev8.40bc3595"
   }
   command {
     echo starting at `date` >&2 && \
