@@ -66,17 +66,19 @@ task singlem {
   }
   command {
     export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`
-    # TODO: Add "if INPUT ne ''"
-    /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
-      $INPUT \
-      --archive_otu_table ~{srr_accession}.singlem.json --threads 2 \
-      --assignment-method diamond \
-      --diamond-prefilter \
-      --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1' \
-      --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
-      --min_orf_length 72 \
-      --singlem-packages `ls -d /pkgs/*spkg` \
-      --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
+    if [[ -v INPUT ]]
+      then
+      /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
+        $INPUT \
+        --archive_otu_table ~{srr_accession}.singlem.json --threads 2 \
+        --assignment-method diamond \
+        --diamond-prefilter \
+        --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1' \
+        --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
+        --min_orf_length 72 \
+        --singlem-packages `ls -d /pkgs/*spkg` \
+        --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
+    fi 
   }
   runtime {
     docker: dockerImage
