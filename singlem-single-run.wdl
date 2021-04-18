@@ -5,7 +5,7 @@ workflow SingleM_SRA {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
-    Boolean? GCloud_Paid
+    Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
   }
@@ -33,7 +33,7 @@ task download_and_extract_ncbi {
     String SRA_accession_num
     String Download_Method_Order
     File? GCloud_User_Key_File
-    Boolean GCloud_Paid = 'false'
+    Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String disks = "local-disk 50 SSD"
@@ -65,12 +65,10 @@ task singlem {
     String dockerImage = "public.ecr.aws/m5a0r7u5/singlem-wdl:0.13.2-dev8.40bc3595"
   }
   command {
-    echo starting at `date` >&2 && \
-    cat /proc/meminfo >&2 && \
-    lscpu >&2 && \
+    export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`
+    # TODO: Add "if INPUT ne ''"
     /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
-      --forward ~{collections_of_sequences[0]} \
-      ~{if length(collections_of_sequences) > 1 then "--reverse ~{collections_of_sequences[1]}" else ""} \
+      $INPUT \
       --archive_otu_table ~{srr_accession}.singlem.json --threads 2 \
       --assignment-method diamond \
       --diamond-prefilter \
