@@ -77,6 +77,7 @@ task singlem {
         --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
         --min_orf_length 72 \
         --singlem-packages `ls -d /pkgs/*spkg` \
+        --diamond-taxonomy-assignment-performance-parameters '--target-indexed -c1' \
         --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
     fi 
   }
