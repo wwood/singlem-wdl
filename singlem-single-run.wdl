@@ -37,7 +37,7 @@ task download_and_extract_ncbi {
     String? AWS_User_Key_Id
     String? AWS_User_Key
     String disks = "local-disk 50 SSD"
-    String dockerImage = "public.ecr.aws/m5a0r7u5/ubuntu-sra-tools:dev8.11e56131"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   command {
     python /ena-fast-download/bin/kingfisher \
