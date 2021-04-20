@@ -57,6 +57,8 @@ task download_and_extract_ncbi {
   runtime {
     docker: dockerImage
     disks: disk_size_str
+    preemptible: 3
+    noAddress: true
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
@@ -68,8 +70,7 @@ task singlem {
     Array[File] collections_of_sequences
     String srr_accession
     Int metagenome_size_in_gbp
-    String memory = "3.5 GiB"
-    String disks = "local-disk 50 SSD"
+    String memory = "2.5 GiB"
     String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev10.a6cc1b4"
   }
   
@@ -82,7 +83,7 @@ task singlem {
       then
       /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
         $INPUT \
-        --archive_otu_table ~{srr_accession}.singlem.json --threads 2 \
+        --archive_otu_table ~{srr_accession}.singlem.json --threads 1 \
         --assignment-method diamond \
         --diamond-prefilter \
         --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1' \
@@ -97,7 +98,9 @@ task singlem {
     docker: dockerImage
     memory: memory
     disks: disk_size_str
-    cpu: 2
+    cpu: 1
+    preemptible: 3
+    noAddress: true
   }
   output {
     File singlem_otu_table_gz = "~{srr_accession}.singlem.json.gz"
