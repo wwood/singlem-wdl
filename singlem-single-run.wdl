@@ -71,7 +71,7 @@ task singlem {
     String srr_accession
     Int metagenome_size_in_gbp
     String memory = "2.5 GiB"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev10.a6cc1b4"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev12.b5532085"
   }
   
   Int disk_size = metagenome_size_in_gbp * 3 + 10
