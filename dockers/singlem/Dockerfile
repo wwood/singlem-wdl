@@ -12,7 +12,7 @@ RUN echo '__version__ = "0.13.2-dev9.2340028d"' >singlem/singlem/version.py
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
 
 # Removed the individual dmnd files from Rossen's chainsaw'd package, to save space.
-ADD 2.0-attempt4-chainsaw-keep-tree.chainsaw /pkgs
+ADD 2.0-attempt4-chainsaw-keep-tree.chainsaw.trim4 /pkgs
 ADD 53_db2.0-attempt4.0.60.faa.dmnd /pkgs
 ADD 53_db2.0-attempt4.0.60.faa.dmnd.seed_idx /pkgs
 
