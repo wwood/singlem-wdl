@@ -1,4 +1,4 @@
-entity:sample_id	sra_accession	metagenome_size_in_gbp	singlem_table
+entity:soil_sample_id	sra_accession	metagenome_size_in_gbp	singlem_table
 ERR5451051	ERR5451051	1	undefined
 ERR5451044	ERR5451044	1	undefined
 ERR5451045	ERR5451045	1	undefined
