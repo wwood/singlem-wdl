@@ -3,6 +3,7 @@ version 1.0
 workflow SingleM_SRA {
   input {
     String SRA_accession_num
+    Int metagenome_size_in_bp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
@@ -12,6 +13,7 @@ workflow SingleM_SRA {
   call download_and_extract_ncbi {
     input:
       SRA_accession_num = SRA_accession_num,
+      metagenome_size_in_bp = metagenome_size_in_bp,
       GCloud_User_Key_File = GCloud_User_Key_File,
       GCloud_Paid = GCloud_Paid,
       AWS_User_Key_Id = AWS_User_Key_Id,
@@ -31,14 +33,17 @@ workflow SingleM_SRA {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
+    Int metagenome_size_in_bp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String disks = "local-disk 50 SSD"
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
+  
+  Int disk = ceil(metagenome_size_in_bp/1 000 000 000)*5 + 10
+  
   command {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
@@ -49,7 +54,7 @@ task download_and_extract_ncbi {
   }
   runtime {
     docker: dockerImage
-    disks: disks
+    disks: disk
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
