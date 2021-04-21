@@ -42,7 +42,8 @@ task download_and_extract_ncbi {
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   
-  String disk = ceil(metagenome_size_in_bp/1000000000)*5 + 10
+  String disk_size = ceil(metagenome_size_in_bp/1000000000)*5 + 10
+  String disk_str = "local-disk "+ disk_size + " SDD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -54,7 +55,7 @@ task download_and_extract_ncbi {
   }
   runtime {
     docker: dockerImage
-    disks: disk
+    disks: disk_str
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
