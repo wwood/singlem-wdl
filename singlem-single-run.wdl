@@ -43,7 +43,7 @@ task download_and_extract_ncbi {
   }
   
   String disk_size = ceil(metagenome_size_in_bp/1000000000)*5 + 10
-  String disk_str = "local-disk "+ disk_size + " SDD"
+  String disk_str = "local-disk "+ disk_size + " SSD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
