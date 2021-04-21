@@ -62,7 +62,7 @@ task singlem {
     String srr_accession
     String memory = "3.5 GiB"
     String disks = "local-disk 50 SSD"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev9.37d888c"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev10.a6cc1b4"
   }
   command {
     export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`

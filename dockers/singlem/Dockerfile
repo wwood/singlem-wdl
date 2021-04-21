@@ -5,14 +5,14 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 2340028d
-RUN echo '__version__ = "0.13.2-dev9.2340028d"' >singlem/singlem/version.py
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout a6cc1b4
+RUN echo '__version__ = "0.13.2-dev10.a6cc1b4"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
 
 # Removed the individual dmnd files from Rossen's chainsaw'd package, to save space.
-ADD 2.0-attempt4-chainsaw-keep-tree.chainsaw.trim4 /pkgs
+ADD 2.0-attempt4-chainsaw-keep-tree.trim5.chainsaw /pkgs
 ADD 53_db2.0-attempt4.0.60.faa.dmnd /pkgs
 ADD 53_db2.0-attempt4.0.60.faa.dmnd.seed_idx /pkgs
 
