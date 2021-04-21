@@ -66,7 +66,7 @@ task singlem {
   }
   command {
     export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`
-    if [[ -v INPUT ]]
+    if [ ! -z "$INPUT" ]
       then
       /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
         $INPUT \
