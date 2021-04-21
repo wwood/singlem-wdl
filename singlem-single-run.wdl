@@ -42,7 +42,7 @@ task download_and_extract_ncbi {
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   
-  Int disk = ceil(metagenome_size_in_bp/1000000000)*5 + 10
+  String disk = ceil(metagenome_size_in_bp/1000000000)*5 + 10
   
   command {
     python /ena-fast-download/bin/kingfisher \
