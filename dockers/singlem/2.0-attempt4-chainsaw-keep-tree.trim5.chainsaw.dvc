@@ -1,0 +1,5 @@
+outs:
+- md5: d4e201e55d3ee7a1ed427d8f8016c2f5.dir
+  size: 786376843
+  nfiles: 849
+  path: 2.0-attempt4-chainsaw-keep-tree.trim5.chainsaw
