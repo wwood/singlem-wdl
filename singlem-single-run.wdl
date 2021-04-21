@@ -70,7 +70,7 @@ task singlem {
     Array[File] collections_of_sequences
     String srr_accession
     Int metagenome_size_in_gbp
-    String memory = "2.5 GiB"
+    String memory = "3.5 GiB"
     String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev12.b5532085"
   }
   
@@ -90,7 +90,7 @@ task singlem {
         --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
         --min_orf_length 72 \
         --singlem-packages `ls -d /pkgs/*spkg` \
-        --diamond-taxonomy-assignment-performance-parameters '--target-indexed -c1' \
+        --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1' \
         --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
     fi 
   }
