@@ -23,7 +23,8 @@ workflow SingleM_SRA {
   call singlem {
     input:
       collections_of_sequences = download_and_extract_ncbi.extracted_reads,
-      srr_accession = SRA_accession_num
+      srr_accession = SRA_accession_num,
+      metagenome_size_in_gbp = metagenome_size_in_gbp
   }
   output {
     File SingleM_tables = singlem.singlem_otu_table_gz
@@ -66,10 +67,15 @@ task singlem {
   input { 
     Array[File] collections_of_sequences
     String srr_accession
+    Int metagenome_size_in_gbp
     String memory = "3.5 GiB"
     String disks = "local-disk 50 SSD"
     String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev10.a6cc1b4"
   }
+  
+  Int disk_size = metagenome_size_in_gbp * 3 + 10
+  String disk_size_str = "local-disk "+ disk_size + " SSD"
+  
   command {
     export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`
     if [ ! -z "$INPUT" ]
@@ -90,7 +96,7 @@ task singlem {
   runtime {
     docker: dockerImage
     memory: memory
-    disks: disks
+    disks: disk_size_str
     cpu: 2
   }
   output {
