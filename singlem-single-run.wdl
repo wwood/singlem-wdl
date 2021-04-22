@@ -42,8 +42,14 @@ task download_and_extract_ncbi {
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   
-  String disk_size = ceil( (ceil(metagenome_size_in_bp/1000000000*5) + 10) / 10 ) *  10
-  String disk_str = "local-disk "+ disk_size + " SSD"
+  Float disk_size_1 = metagenome_size_in_bp/1000000000*5
+  Int disk_size_2 = ceil(disk_size_1+10)
+  Float disk_size_3 = disk_size_2/10
+  Int disk_size_4 = ceil(disk_size_3*10)
+  
+  
+  #String disk_size = ceil( (ceil(metagenome_size_in_bp/1000000000*5) + 10) / 10 ) *  10
+  String disk_str = "local-disk "+ disk_size_4 + " SSD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -55,7 +61,7 @@ task download_and_extract_ncbi {
   }
   runtime {
     docker: dockerImage
-    disks: disk_str
+    disks: "local-disk 50 SSD"
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
