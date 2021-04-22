@@ -42,7 +42,7 @@ task download_and_extract_ncbi {
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   
-  #Float disk_size_1 = metagenome_size_in_bp/1000000000*5
+  Float disk_size_1 = metagenome_size_in_bp/1000000000*5
   #Int disk_size_2 = ceil(disk_size_1+10)
   #Float disk_size_3 = disk_size_2/10
   #Int disk_size_4 = ceil(disk_size_3*10)
