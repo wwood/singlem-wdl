@@ -3,7 +3,7 @@ version 1.0
 workflow SingleM_SRA {
   input {
     String SRA_accession_num
-    Int metagenome_size_in_bp
+    String metagenome_size_in_bp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
@@ -33,7 +33,7 @@ workflow SingleM_SRA {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
-    Int metagenome_size_in_bp
+    String metagenome_size_in_bp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
