@@ -3,7 +3,7 @@ version 1.0
 workflow SingleM_SRA {
   input {
     String SRA_accession_num
-    String metagenome_size_in_bp
+    Int metagenome_size_in_gbp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
@@ -13,7 +13,7 @@ workflow SingleM_SRA {
   call download_and_extract_ncbi {
     input:
       SRA_accession_num = SRA_accession_num,
-      metagenome_size_in_bp = metagenome_size_in_bp,
+      metagenome_size_in_gbp = metagenome_size_in_gbp,
       GCloud_User_Key_File = GCloud_User_Key_File,
       GCloud_Paid = GCloud_Paid,
       AWS_User_Key_Id = AWS_User_Key_Id,
@@ -33,7 +33,7 @@ workflow SingleM_SRA {
 task download_and_extract_ncbi {
   input {
     String SRA_accession_num
-    String metagenome_size_in_bp
+    Int metagenome_size_in_gbp
     String Download_Method_Order
     File? GCloud_User_Key_File
     Boolean GCloud_Paid
@@ -42,15 +42,8 @@ task download_and_extract_ncbi {
     String dockerImage = "gcr.io/maximal-dynamo-308105/download_and_extract_ncbi:dev9.11e56131"
   }
   
-  Int metagenome_size_in_bp_int = metagenome_size_in_bp
-  Float disk_size_1 = metagenome_size_in_bp_int/1000000000*5
-  #Int disk_size_2 = ceil(disk_size_1+10)
-  #Float disk_size_3 = disk_size_2/10
-  #Int disk_size_4 = ceil(disk_size_3*10)
-  
-  
-  #String disk_size = ceil( (ceil(metagenome_size_in_bp/1000000000*5) + 10) / 10 ) *  10
-  #String disk_str = "local-disk "+ disk_size_4 + " SSD"
+  Int disk_size = metagenome_size_in_gbp * 5
+  String disk_size_str = "local-disk "+ disk_size + " SSD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -62,7 +55,7 @@ task download_and_extract_ncbi {
   }
   runtime {
     docker: dockerImage
-    disks: "local-disk 50 SSD"
+    disks: disk_size_str
   }
   output {
     Array[File] extracted_reads = glob("*.fastq")
