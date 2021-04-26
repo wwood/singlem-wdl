@@ -76,6 +76,7 @@ task singlem {
   
   Int disk_size = metagenome_size_in_gbp * 3 + 10
   String disk_size_str = "local-disk "+ disk_size + " SSD"
+  Int preemptible_tries = if (metagenome_size_in_gbp > 100) then 0 else 3
   
   command {
     export INPUT=`/singlem/extras/sra_input_generator.py --fastq-dump-outputs ~{sep=' ' collections_of_sequences} --min-orf-length 72`
