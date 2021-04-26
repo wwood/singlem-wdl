@@ -100,7 +100,7 @@ task singlem {
     memory: memory
     disks: disk_size_str
     cpu: 1
-    preemptible: 3
+    preemptible: preemptible_tries
     noAddress: true
   }
   output {
