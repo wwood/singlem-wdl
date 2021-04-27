@@ -1,0 +1,30 @@
+2021/04/26 06:03:27 Starting container setup.
+2021/04/26 06:03:29 Done container setup.
+2021/04/26 06:03:34 Starting localization.
+2021/04/26 06:03:49 Localization script execution started...
+2021/04/26 06:03:49 Localizing input gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/script -> /cromwell_root/script
+2021/04/26 06:03:51 Localizing input gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/sa-private-key.json -> /cromwell_root/fc-8fd2f533-1e00-448f-92d1-93556b4a8668/sa-private-key.json
+2021/04/26 06:03:54 Localization script execution complete.
+2021/04/26 06:03:57 Done localization.
+2021/04/26 06:03:59 Running user action: docker run -v /mnt/local-disk:/cromwell_root --entrypoint=/bin/bash gcr.io/maximal-dynamo-308105/download_and_extract_ncbi@sha256:5729e769a5a2f0483f942a6dead172f693fcb418ffdc9f57ee215d0dd78e0990 /cromwell_root/script
+04/26/2021 06:04:04 AM INFO: Attempting download method gcp-cp ..
+04/26/2021 06:04:08 AM WARNING: Method gcp-cp failed, error was Rehydration required from GCP, so ignoring
+04/26/2021 06:04:08 AM WARNING: Method gcp-cp failed
+04/26/2021 06:04:08 AM INFO: Attempting download method aws-http ..
+04/26/2021 06:04:08 AM INFO: Found ODP link https://sra-pub-run-odp.s3.amazonaws.com/sra/DRR001456/DRR001456
+04/26/2021 06:04:08 AM INFO: Downloading .SRA file from AWS Open Data Program HTTP link ..
+04/26/2021 06:04:43 AM INFO: Download finished
+04/26/2021 06:04:43 AM INFO: Method aws-http worked.
+04/26/2021 06:12:33 AM INFO: Output files: DRR001456_1.fastq, DRR001456_2.fastq
+04/26/2021 06:12:33 AM INFO: All done.
+2021/04/26 06:12:49 Starting delocalization.
+2021/04/26 06:12:51 Delocalization script execution started...
+2021/04/26 06:12:51 Delocalizing output /cromwell_root/memory_retry_rc -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/memory_retry_rc
+2021/04/26 06:12:51 Delocalizing output /cromwell_root/rc -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/rc
+2021/04/26 06:12:52 Delocalizing output /cromwell_root/stdout -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/stdout
+2021/04/26 06:12:53 Delocalizing output /cromwell_root/stderr -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/stderr
+2021/04/26 06:12:55 Delocalizing output /cromwell_root/glob-db248e3bce81b54f5ef521878fe9e9de -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/
+2021/04/26 06:16:49 Delocalizing output /cromwell_root/glob-db248e3bce81b54f5ef521878fe9e9de.list -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de.list
+2021/04/26 06:16:50 Delocalization script execution complete.
+2021/04/26 06:16:58 Done delocalization.
+
