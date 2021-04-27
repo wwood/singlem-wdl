@@ -44,7 +44,7 @@ task download_and_extract_ncbi {
   }
   
   Int disk_size = metagenome_size_in_gbp * 5
-  String disk_size_str = "local-disk "+ disk_size + " SSD"
+  String disk_size_str = "local-disk "+ disk_size + " HDD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -75,7 +75,7 @@ task singlem {
   }
   
   Int disk_size = metagenome_size_in_gbp * 3 + 10
-  String disk_size_str = "local-disk "+ disk_size + " SSD"
+  String disk_size_str = "local-disk "+ disk_size + " HDD"
   Int preemptible_tries = if (metagenome_size_in_gbp > 100) then 0 else 3
   
   command {
