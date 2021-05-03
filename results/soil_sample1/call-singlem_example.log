@@ -1,0 +1,347 @@
+2021/04/26 06:38:56 Starting container setup.
+2021/04/26 06:38:58 Done container setup.
+2021/04/26 06:39:02 Starting localization.
+2021/04/26 06:39:15 Localization script execution started...
+2021/04/26 06:39:15 Localizing input gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_1.fastq -> /cromwell_root/fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_1.fastq
+2021/04/26 06:40:53 Localizing input gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_2.fastq -> /cromwell_root/fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_2.fastq
+Copying gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_2.fastq...
+/ [0 files][    0.0 B/  3.2 GiB]                                                
+-
+- [0 files][105.5 MiB/  3.2 GiB]                                                
+\
+|
+| [0 files][244.2 MiB/  3.2 GiB]                                                
+/
+/ [0 files][378.2 MiB/  3.2 GiB]                                                
+-
+\
+\ [0 files][515.4 MiB/  3.2 GiB]                                                
+|
+/
+/ [0 files][568.7 MiB/  3.2 GiB]                                                
+-
+- [0 files][604.6 MiB/  3.2 GiB]                                                
+\
+|
+| [0 files][636.3 MiB/  3.2 GiB]                                                
+/
+-
+- [0 files][666.2 MiB/  3.2 GiB]                                                
+\
+\ [0 files][695.3 MiB/  3.2 GiB]                                                
+|
+/
+/ [0 files][722.7 MiB/  3.2 GiB]                                                
+-
+\
+\ [0 files][749.5 MiB/  3.2 GiB]   28.8 MiB/s                                   
+|
+| [0 files][776.0 MiB/  3.2 GiB]   27.8 MiB/s                                   
+/
+-
+- [0 files][802.8 MiB/  3.2 GiB]   27.1 MiB/s                                   
+\
+|
+| [0 files][829.4 MiB/  3.2 GiB]   26.7 MiB/s                                   
+/
+/ [0 files][856.2 MiB/  3.2 GiB]   26.5 MiB/s                                   
+-
+\
+\ [0 files][882.0 MiB/  3.2 GiB]   26.3 MiB/s                                   
+|
+/
+/ [0 files][907.8 MiB/  3.2 GiB]   26.1 MiB/s                                   
+-
+- [0 files][933.3 MiB/  3.2 GiB]   26.0 MiB/s                                   
+\
+|
+| [0 files][958.8 MiB/  3.2 GiB]   25.7 MiB/s                                   
+/
+/ [0 files][983.6 MiB/  3.2 GiB]   25.4 MiB/s                                   
+-
+\
+\ [0 files][ 1008 MiB/  3.2 GiB]   25.3 MiB/s                                   
+|
+/
+/ [0 files][  1.0 GiB/  3.2 GiB]   25.1 MiB/s                                   
+-
+- [0 files][  1.0 GiB/  3.2 GiB]   24.8 MiB/s                                   
+\
+|
+| [0 files][  1.1 GiB/  3.2 GiB]   24.7 MiB/s                                   
+/
+-
+- [0 files][  1.1 GiB/  3.2 GiB]   24.5 MiB/s                                   
+\
+\ [0 files][  1.1 GiB/  3.2 GiB]   24.4 MiB/s                                   
+|
+/
+/ [0 files][  1.1 GiB/  3.2 GiB]   24.2 MiB/s                                   
+-
+\
+\ [0 files][  1.2 GiB/  3.2 GiB]   24.2 MiB/s                                   
+|
+| [0 files][  1.2 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+-
+- [0 files][  1.2 GiB/  3.2 GiB]   24.1 MiB/s                                   
+\
+|
+| [0 files][  1.2 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+/ [0 files][  1.3 GiB/  3.2 GiB]   24.1 MiB/s                                   
+-
+\
+\ [0 files][  1.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+/
+/ [0 files][  1.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+-
+- [0 files][  1.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+|
+| [0 files][  1.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+/
+-
+- [0 files][  1.4 GiB/  3.2 GiB]   24.1 MiB/s                                   
+\
+\ [0 files][  1.4 GiB/  3.2 GiB]   24.1 MiB/s                                   
+|
+/
+/ [0 files][  1.4 GiB/  3.2 GiB]   24.1 MiB/s                                   
+-
+\
+\ [0 files][  1.4 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+| [0 files][  1.5 GiB/  3.2 GiB]   24.0 MiB/s                                   
+/
+-
+- [0 files][  1.5 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+|
+| [0 files][  1.5 GiB/  3.2 GiB]   24.0 MiB/s                                   
+/
+/ [0 files][  1.5 GiB/  3.2 GiB]   24.0 MiB/s                                   
+-
+\
+\ [0 files][  1.6 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+/
+/ [0 files][  1.6 GiB/  3.2 GiB]   24.1 MiB/s                                   
+-
+- [0 files][  1.6 GiB/  3.2 GiB]   24.1 MiB/s                                   
+\
+|
+| [0 files][  1.6 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+-
+- [0 files][  1.7 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+\ [0 files][  1.7 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+/
+/ [0 files][  1.7 GiB/  3.2 GiB]   23.9 MiB/s                                   
+-
+\
+\ [0 files][  1.7 GiB/  3.2 GiB]   23.9 MiB/s                                   
+|
+| [0 files][  1.7 GiB/  3.2 GiB]   23.8 MiB/s                                   
+/
+-
+- [0 files][  1.8 GiB/  3.2 GiB]   23.8 MiB/s                                   
+\
+|
+| [0 files][  1.8 GiB/  3.2 GiB]   23.9 MiB/s                                   
+/
+/ [0 files][  1.8 GiB/  3.2 GiB]   23.8 MiB/s                                   
+-
+\
+\ [0 files][  1.8 GiB/  3.2 GiB]   23.8 MiB/s                                   
+|
+/
+/ [0 files][  1.9 GiB/  3.2 GiB]   23.7 MiB/s                                   
+-
+- [0 files][  1.9 GiB/  3.2 GiB]   23.5 MiB/s                                   
+\
+|
+| [0 files][  1.9 GiB/  3.2 GiB]   23.4 MiB/s                                   
+/
+-
+- [0 files][  1.9 GiB/  3.2 GiB]   23.6 MiB/s                                   
+\
+\ [0 files][  2.0 GiB/  3.2 GiB]   23.8 MiB/s                                   
+|
+/
+/ [0 files][  2.0 GiB/  3.2 GiB]   23.9 MiB/s                                   
+-
+\
+\ [0 files][  2.0 GiB/  3.2 GiB]   24.3 MiB/s                                   
+|
+| [0 files][  2.0 GiB/  3.2 GiB]   24.4 MiB/s                                   
+/
+-
+- [0 files][  2.1 GiB/  3.2 GiB]   24.2 MiB/s                                   
+\
+\ [0 files][  2.1 GiB/  3.2 GiB]   24.2 MiB/s                                   
+|
+/
+/ [0 files][  2.1 GiB/  3.2 GiB]   24.2 MiB/s                                   
+-
+\
+\ [0 files][  2.1 GiB/  3.2 GiB]   24.1 MiB/s                                   
+|
+| [0 files][  2.1 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+-
+- [0 files][  2.2 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+|
+| [0 files][  2.2 GiB/  3.2 GiB]   23.8 MiB/s                                   
+/
+/ [0 files][  2.2 GiB/  3.2 GiB]   23.9 MiB/s                                   
+-
+\
+\ [0 files][  2.2 GiB/  3.2 GiB]   23.9 MiB/s                                   
+|
+/
+/ [0 files][  2.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+-
+- [0 files][  2.3 GiB/  3.2 GiB]   23.9 MiB/s                                   
+\
+|
+| [0 files][  2.3 GiB/  3.2 GiB]   24.2 MiB/s                                   
+/
+-
+- [0 files][  2.3 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+\ [0 files][  2.4 GiB/  3.2 GiB]   23.9 MiB/s                                   
+|
+/
+/ [0 files][  2.4 GiB/  3.2 GiB]   23.7 MiB/s                                   
+-
+\
+\ [0 files][  2.4 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+| [0 files][  2.4 GiB/  3.2 GiB]   24.0 MiB/s                                   
+/
+-
+- [0 files][  2.5 GiB/  3.2 GiB]   24.1 MiB/s                                   
+\
+|
+| [0 files][  2.5 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+/ [0 files][  2.5 GiB/  3.2 GiB]   24.2 MiB/s                                   
+-
+\
+\ [0 files][  2.5 GiB/  3.2 GiB]   23.9 MiB/s                                   
+|
+/
+/ [0 files][  2.5 GiB/  3.2 GiB]   23.9 MiB/s                                   
+-
+- [0 files][  2.6 GiB/  3.2 GiB]   24.0 MiB/s                                   
+\
+|
+| [0 files][  2.6 GiB/  3.2 GiB]   24.1 MiB/s                                   
+/
+-
+- [0 files][  2.6 GiB/  3.2 GiB]   24.2 MiB/s                                   
+\
+\ [0 files][  2.6 GiB/  3.2 GiB]   24.1 MiB/s                                   
+|
+/
+/ [0 files][  2.7 GiB/  3.2 GiB]   24.1 MiB/s                                   
+-
+\
+\ [0 files][  2.7 GiB/  3.2 GiB]   24.0 MiB/s                                   
+|
+| [0 files][  2.7 GiB/  3.2 GiB]   23.9 MiB/s                                   
+/
+-
+- [0 files][  2.7 GiB/  3.2 GiB]   23.9 MiB/s                                   
+\
+|
+| [0 files][  2.8 GiB/  3.2 GiB]   24.0 MiB/s                                   
+/
+/ [0 files][  2.8 GiB/  3.2 GiB]   24.1 MiB/s                                   
+-
+- [0 files][  2.8 GiB/  3.2 GiB]   18.7 MiB/s                                   
+\
+|
+| [0 files][  2.8 GiB/  3.2 GiB]   19.8 MiB/s                                   
+/
+-
+- [0 files][  2.8 GiB/  3.2 GiB]   20.5 MiB/s                                   
+\
+\ [0 files][  2.9 GiB/  3.2 GiB]   20.9 MiB/s                                   
+|
+/
+/ [0 files][  2.9 GiB/  3.2 GiB]   27.5 MiB/s                                   
+-
+\
+\ [0 files][  2.9 GiB/  3.2 GiB]   27.2 MiB/s                                   
+|
+| [0 files][  2.9 GiB/  3.2 GiB]   26.7 MiB/s                                   
+/
+-
+- [0 files][  3.0 GiB/  3.2 GiB]   26.5 MiB/s                                   
+\
+|
+| [0 files][  3.0 GiB/  3.2 GiB]   26.4 MiB/s                                   
+/
+/ [0 files][  3.0 GiB/  3.2 GiB]   26.2 MiB/s                                   
+-
+\
+\ [0 files][  3.1 GiB/  3.2 GiB]   25.9 MiB/s                                   
+|
+/
+/ [0 files][  3.1 GiB/  3.2 GiB]   25.6 MiB/s                                   
+-
+- [0 files][  3.1 GiB/  3.2 GiB]   25.2 MiB/s                                   
+\
+|
+| [0 files][  3.1 GiB/  3.2 GiB]   24.9 MiB/s                                   
+/
+-
+- [0 files][  3.1 GiB/  3.2 GiB]   24.6 MiB/s                                   
+\
+\ [0 files][  3.2 GiB/  3.2 GiB]   24.4 MiB/s                                   
+|
+/
+/ [0 files][  3.2 GiB/  3.2 GiB]   24.3 MiB/s                                   
+-
+\
+\ [0 files][  3.2 GiB/  3.2 GiB]   24.1 MiB/s                                   
+\ [1 files][  3.2 GiB/  3.2 GiB]      0.0 B/s                                   
+|
+Operation completed over 1 objects/3.2 GiB.                                      
+2021/04/26 06:43:11 Localizing input gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/script -> /cromwell_root/script
+2021/04/26 06:43:12 Localization script execution complete.
+2021/04/26 06:43:20 Done localization.
+2021/04/26 06:43:21 Running user action: docker run -v /mnt/local-disk:/cromwell_root --entrypoint=/bin/bash gcr.io/maximal-dynamo-308105/singlem@sha256:c2c42d9d1fcb06e08ef5bfc88c92d3427c99b26671623bed4d80272dea7fa2cf /cromwell_root/script
+04/26/2021 06:43:28 AM INFO: SingleM v0.13.2-dev12.b5532085
+04/26/2021 06:43:29 AM INFO: Loaded 83 SingleM packages
+04/26/2021 06:43:30 AM INFO: Using as input 1 different pairs of sequence files e.g. /cromwell_root/fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_1.fastq & /cromwell_root/fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-download_and_extract_ncbi/glob-db248e3bce81b54f5ef521878fe9e9de/DRR001456_2.fastq
+04/26/2021 06:43:30 AM INFO: Filtering sequence files through DIAMOND blastx
+04/26/2021 06:57:53 AM INFO: Finished DIAMOND prefilter phase
+04/26/2021 06:57:53 AM INFO: Assigning sequences to SingleM packages with HMMSEARCH ..
+04/26/2021 06:57:53 AM INFO: Searching with 83 SingleM package(s)
+04/26/2021 06:57:53 AM INFO: Searching for reads matching 102 different protein HMM(s)
+04/26/2021 06:59:01 AM INFO: Finished search phase
+04/26/2021 06:59:01 AM INFO: Running separate alignments in GraftM..
+04/26/2021 07:01:50 AM INFO: Finished extracting aligned sequences
+04/26/2021 07:01:50 AM INFO: Running taxonomic assignment ..
+04/26/2021 07:03:05 AM INFO: Finished running taxonomic assignment
+04/26/2021 07:03:24 AM INFO: Finished
+04/26/2021 07:03:25 AM INFO: Loaded 83 SingleM packages
+924.40user 137.15system 20:00.86elapsed 88%CPU (0avgtext+0avgdata 1455488maxresident)k
+14913960inputs+312448outputs (716major+13528384minor)pagefaults 0swaps
+2021/04/26 07:03:33 Starting delocalization.
+2021/04/26 07:03:34 Delocalization script execution started...
+2021/04/26 07:03:34 Delocalizing output /cromwell_root/memory_retry_rc -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/memory_retry_rc
+2021/04/26 07:03:34 Delocalizing output /cromwell_root/rc -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/rc
+2021/04/26 07:03:38 Delocalizing output /cromwell_root/stdout -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/stdout
+2021/04/26 07:03:40 Delocalizing output /cromwell_root/stderr -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/stderr
+2021/04/26 07:03:41 Delocalizing output /cromwell_root/DRR001456.singlem.json.gz -> gs://fc-8fd2f533-1e00-448f-92d1-93556b4a8668/c2226283-7015-4746-bf47-0f2e9c26032e/SingleM_SRA/1931be0f-1d3f-40d4-a4cd-371faef755bd/call-singlem/DRR001456.singlem.json.gz
+2021/04/26 07:03:43 Delocalization script execution complete.
+2021/04/26 07:03:44 Done delocalization.
+

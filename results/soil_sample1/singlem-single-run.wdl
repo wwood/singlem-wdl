@@ -44,7 +44,7 @@ task download_and_extract_ncbi {
   }
   
   Int disk_size = metagenome_size_in_gbp * 5
-  String disk_size_str = "local-disk "+ disk_size + " HDD"
+  String disk_size_str = "local-disk "+ disk_size + " SSD"
   
   command {
     python /ena-fast-download/bin/kingfisher \
@@ -71,11 +71,11 @@ task singlem {
     String srr_accession
     Int metagenome_size_in_gbp
     String memory = "3.5 GiB"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev13.077bcde7"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev12.b5532085"
   }
   
   Int disk_size = metagenome_size_in_gbp * 3 + 10
-  String disk_size_str = "local-disk "+ disk_size + " HDD"
+  String disk_size_str = "local-disk "+ disk_size + " SSD"
   Int preemptible_tries = if (metagenome_size_in_gbp > 100) then 0 else 3
   
   command {
@@ -107,3 +107,4 @@ task singlem {
     File singlem_otu_table_gz = "~{srr_accession}.singlem.json.gz"
   }
 }
+
