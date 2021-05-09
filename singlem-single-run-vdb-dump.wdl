@@ -18,11 +18,11 @@ workflow SingleM_SRA {
       GCloud_Paid = GCloud_Paid,
       AWS_User_Key_Id = AWS_User_Key_Id,
       AWS_User_Key = AWS_User_Key,
-      Download_Method_Order = Download_Method_Order
+      Download_Method_Order = Download_Method_Order,
 
       # collections_of_sequences = download_and_extract_ncbi.extracted_reads,
-      srr_accession = SRA_accession_num,
-      metagenome_size_in_gbp = metagenome_size_in_gbp
+      # srr_accession = SRA_accession_num,
+      # metagenome_size_in_gbp = metagenome_size_in_gbp
   }
   output {
     File SingleM_tables = singlem.singlem_otu_table_gz
@@ -31,11 +31,18 @@ workflow SingleM_SRA {
 
 task singlem {
   input { 
-    Array[File] collections_of_sequences
-    String srr_accession
+    #Array[File] collections_of_sequences
+    # String srr_accession
     Int metagenome_size_in_gbp
     String memory = "3.5 GiB"
     String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev13.077bcde7.plus_sra_tools"
+
+    String SRA_accession_num
+    String Download_Method_Order
+    File? GCloud_User_Key_File
+    Boolean GCloud_Paid
+    String? AWS_User_Key_Id
+    String? AWS_User_Key                        
   }
   
   Int disk_size = metagenome_size_in_gbp * 3 + 10
@@ -45,15 +52,18 @@ task singlem {
   command {
     python /ena-fast-download/bin/kingfisher \
       -r ~{SRA_accession_num} \
-      --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
       ~{if (GCloud_Paid) then "--allow-paid-from-gcp" else ""} \
+      --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
       --output-format-possibilities sra \
-      -m ~{Download_Method_Order} &&
-    mkfifo /tmp/~{SRA_accession_num}.fna &&
-    vdb-dump  -f fasta ./~{SRA_accession_num} > /tmp/~{SRA_accession_num}.fna &
-      /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
-        --forward ~{SRA_accession_num}.fna \
-        --archive_otu_table ~{srr_accession}.singlem.json --threads 1 \
+      -m ~{Download_Method_Order}
+      
+    mkfifo /tmp/~{SRA_accession_num}.fna
+    
+    vdb-dump  -f fasta ./~{SRA_accession_num}.sra > /tmp/~{SRA_accession_num}.fna &
+    
+    /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
+        --forward /tmp/~{SRA_accession_num}.fna \
+        --archive_otu_table ~{SRA_accession_num}.singlem.json --threads 1 \
         --assignment-method diamond \
         --diamond-prefilter \
         --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1' \
@@ -61,7 +71,7 @@ task singlem {
         --min_orf_length 72 \
         --singlem-packages `ls -d /pkgs/*spkg` \
         --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1' \
-        --working-directory-tmpdir && gzip ~{srr_accession}.singlem.json
+        --working-directory-tmpdir && gzip ~{SRA_accession_num}.singlem.json
   }
   runtime {
     docker: dockerImage
@@ -72,6 +82,6 @@ task singlem {
     noAddress: true
   }
   output {
-    File singlem_otu_table_gz = "~{srr_accession}.singlem.json.gz"
+    File singlem_otu_table_gz = "~{SRA_accession_num}.singlem.json.gz"
   }
 }
