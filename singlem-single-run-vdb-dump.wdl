@@ -35,7 +35,7 @@ task singlem {
     # String srr_accession
     Int metagenome_size_in_gbp
     String memory = "3.5 GiB"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev13.077bcde7.plus_sra_tools"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev14.62878199.plus_sra_tools"
 
     String SRA_accession_num
     String Download_Method_Order
