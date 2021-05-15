@@ -16,8 +16,8 @@ ENV PATH /opt/conda/envs/env/bin:$PATH
 RUN git clone https://github.com/wwood/ena-fast-download && cd ena-fast-download && git checkout e1b7e73
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 0f3d31e1
-RUN echo '__version__ = "0.13.2-dev15.0f3d31e1"' >singlem/singlem/version.py
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 23120860
+RUN echo '__version__ = "0.13.2-dev16.23120860"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
