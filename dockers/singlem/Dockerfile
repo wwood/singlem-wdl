@@ -1,12 +1,23 @@
 FROM continuumio/miniconda3
+
+ENV USER=root
+RUN apt update && \
+      apt-get install -y curl unzip && \
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+      unzip awscliv2.zip && \
+      ./aws/install
+
 # Don't need all of the dependencies of singlem, because only pipe is going to be run.
-RUN conda create -c conda-forge -c bioconda -c defaults -n env python diamond=2.0.9 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time
+RUN conda create -c conda-forge -c bioconda -c defaults -n env python diamond=2.0.9 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time sra-tools google-cloud-sdk pigz
 RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
+# Kingfisher
+RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 1854b96e
+
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 077bcde7
-RUN echo '__version__ = "0.13.2-dev13.077bcde7"' >singlem/singlem/version.py
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 7d3a95f
+RUN echo '__version__ = "0.13.2-dev19.7d3a95f"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
