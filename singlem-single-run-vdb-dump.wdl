@@ -35,7 +35,7 @@ task singlem {
     # String srr_accession
     Int metagenome_size_in_gbp
     String memory = "3.5 GiB"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev18.51f9d576.plus_sra_tools"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev19.7d3a95f"
 
     String SRA_accession_num
     String Download_Method_Order
@@ -50,19 +50,14 @@ task singlem {
   Int preemptible_tries = if (metagenome_size_in_gbp > 100) then 0 else 3
   
   command {
-    python /ena-fast-download/bin/kingfisher \
+    python /kingfisher-download/bin/kingfisher get \
       -r ~{SRA_accession_num} \
       ~{if (GCloud_Paid) then "--allow-paid-from-gcp" else ""} \
       --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
       --output-format-possibilities sra \
-      -m ~{Download_Method_Order}
-      
-    mkfifo /tmp/~{SRA_accession_num}.fna
-    
-    vdb-dump  -f fasta ./~{SRA_accession_num}.sra > /tmp/~{SRA_accession_num}.fna &
-    
+      -m ~{Download_Method_Order} && \
     /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
-        --forward /tmp/~{SRA_accession_num}.fna \
+        --sra-files ~{SRA_accession_num}.sra \
         --archive_otu_table ~{SRA_accession_num}.singlem.json --threads 1 \
         --assignment-method diamond \
         --diamond-prefilter \
@@ -70,6 +65,7 @@ task singlem {
         --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
         --min_orf_length 72 \
         --singlem-packages `ls -d /pkgs/*spkg` \
+        --diamond-package-assignment \
         --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1' \
         --working-directory-tmpdir && gzip ~{SRA_accession_num}.singlem.json
   }
