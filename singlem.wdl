@@ -61,7 +61,7 @@ task singlem {
         --archive_otu_table ~{SRA_accession_num}.singlem.json --threads 1 \
         --assignment-method diamond \
         --diamond-prefilter \
-        --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1' \
+        --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' \
         --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
         --min_orf_length 72 \
         --singlem-packages `ls -d /pkgs/*spkg` \
