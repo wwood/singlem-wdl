@@ -1,3 +1,4 @@
+import os
 from pprint import pprint
 from google.oauth2 import service_account
 from googleapiclient import discovery
@@ -19,16 +20,23 @@ def hello_world():
     name = 'projects/maximal-dynamo-308105/locations/us-central1'  # TODO: Update placeholder value.
 
     request = service.projects().locations().operations().list(name=name)
+    
+    ops = ""
     while True:
         response = request.execute()
 
         for operation in response.get('operations', []):
             # TODO: Change code below to process each `operation` resource:
-            pprint(operation)
+            ops+=str(operation)
 
         request = service.projects().locations().operations().list_next(previous_request=request, previous_response=response)
         if request is None:
             break
+    return ops
+
+@app.route("/")
+def hello():
+    return hello_world()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
