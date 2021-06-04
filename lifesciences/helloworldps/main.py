@@ -1,6 +1,7 @@
 import os
 import base64
 from pprint import pprint
+
 from google.oauth2 import service_account
 from googleapiclient import discovery
 
@@ -9,8 +10,6 @@ from flask import request
 
 app = Flask(__name__)
 
-
-@app.route("/")
 def hello_world():
     service_account_file = '/etc/credentials/credentials.json'
     scopes = ['https://www.googleapis.com/auth/cloud-platform']
@@ -63,7 +62,6 @@ def index():
     print(f"Hello {name}!")
 
     return ("", 204)
-
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
