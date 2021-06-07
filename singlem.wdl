@@ -34,7 +34,7 @@ task singlem {
     #Array[File] collections_of_sequences
     # String srr_accession
     Int metagenome_size_in_gbp
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev20.0e716b1"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev21.6634f90"
 
     String SRA_accession_num
     String Download_Method_Order
