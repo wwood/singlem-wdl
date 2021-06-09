@@ -34,8 +34,7 @@ task singlem {
     #Array[File] collections_of_sequences
     # String srr_accession
     Int metagenome_size_in_gbp
-    String memory = "3.5 GiB"
-    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev19.7d3a95f"
+    String dockerImage = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev20.0e716b1"
 
     String SRA_accession_num
     String Download_Method_Order
@@ -48,6 +47,8 @@ task singlem {
   Int disk_size = metagenome_size_in_gbp * 3 + 10
   String disk_size_str = "local-disk "+ disk_size + " HDD"
   Int preemptible_tries = if (metagenome_size_in_gbp > 100) then 0 else 3
+  Int ram = 3 + (metagenome_size_in_gbp / 50)
+  String ram_str = ram + ".5 GiB"
   
   command {
     python /kingfisher-download/bin/kingfisher get \
@@ -71,7 +72,7 @@ task singlem {
   }
   runtime {
     docker: dockerImage
-    memory: memory
+    memory: ram_str
     disks: disk_size_str
     cpu: 1
     preemptible: preemptible_tries
