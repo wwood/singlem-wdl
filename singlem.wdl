@@ -10,7 +10,7 @@ workflow SingleM_SRA {
     Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev23.41928e65"
+    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev24.0de77d8"
   }
   call singlem_gather {
     input:

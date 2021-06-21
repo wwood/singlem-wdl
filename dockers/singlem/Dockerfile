@@ -16,8 +16,8 @@ ENV PATH /opt/conda/envs/env/bin:$PATH
 RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 1854b96e
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 41928e65
-RUN echo '__version__ = "0.13.2-dev23.41928e65"' >singlem/singlem/version.py
+RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 0de77d8
+RUN echo '__version__ = "0.13.2-dev24.0de77d8"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
