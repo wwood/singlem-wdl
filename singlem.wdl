@@ -120,7 +120,7 @@ task singlem_taxonomy {
     disks: disk_size_str
     cpu: 1
     preemptible: if (metagenome_size_in_GB > 100) then 0 else 3
-    noAddress: true
+    noAddress: false
   }
   output {
     File singlem_otu_table_gz = "~{SRA_accession_num}.singlem.json.gz"
