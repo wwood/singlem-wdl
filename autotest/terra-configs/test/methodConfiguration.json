@@ -1,0 +1,11 @@
+  data={
+    "methodConfigurationNamespace": "singlem",
+    "methodConfigurationName": "singlem-single-task",
+    "entityType": "autotest_sample_set",
+    "entityName": "test",
+    "expression": "this.autotest_samples",
+    "useCallCache": False,
+    "deleteIntermediateOutputFiles": True,
+    "useReferenceDisks": True,
+    "workflowFailureMode": "NoNewCalls"
+  }
