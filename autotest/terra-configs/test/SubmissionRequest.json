@@ -1,4 +1,4 @@
-  data={
+  {
     "methodConfigurationNamespace": "singlem",
     "methodConfigurationName": "singlem-single-task",
     "entityType": "autotest_sample_set",
