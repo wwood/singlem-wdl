@@ -2,7 +2,7 @@
     "methodConfigurationNamespace": "singlem",
     "methodConfigurationName": "singlem-single-task",
     "entityType": "autotest_sample_set",
-    "entityName": "test",
+    "entityName": "check_run",
     "expression": "this.autotest_samples",
     "useCallCache": False,
     "deleteIntermediateOutputFiles": True,
