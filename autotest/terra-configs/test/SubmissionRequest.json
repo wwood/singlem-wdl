@@ -4,8 +4,8 @@
     "entityType": "autotest_sample_set",
     "entityName": "check_run",
     "expression": "this.autotest_samples",
-    "useCallCache": False,
-    "deleteIntermediateOutputFiles": True,
-    "useReferenceDisks": True,
+    "useCallCache": false,
+    "deleteIntermediateOutputFiles": true,
+    "useReferenceDisks": true,
     "workflowFailureMode": "NoNewCalls"
   }
