@@ -10,7 +10,7 @@ workflow SingleM_SRA {
     Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev24.0de77d8"
+    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev25.4ba1c49"
   }
   call singlem_gather {
     input:
@@ -29,6 +29,7 @@ workflow SingleM_SRA {
       dockerImage = singlem_docker,
       SRA_accession_num = SRA_accession_num,
       metagenome_size_in_GB = metagenome_size_in_GB,
+      metagenome_size_in_gbp = metagenome_size_in_gbp,
       unannotated_archive = singlem_gather.unannotated_archive
   }
   output {
@@ -56,7 +57,6 @@ task singlem_gather {
   String disk_size_str = "local-disk "+ disk_size + " HDD"
   Int ram = 3 + 2*(metagenome_size_in_gbp / 100) # Runs like SRR7589585 (109Gbp) fail on 3.5GB
   String ram_str = ram + ".5 GiB"
-  Int preemptible_tries = if (metagenome_size_in_GB > 100) then 0 else 3
 
   command {
     python /kingfisher-download/bin/kingfisher get \
@@ -64,11 +64,13 @@ task singlem_gather {
         ~{if (GCloud_Paid) then "--allow-paid-from-gcp" else ""} \
         --gcp-user-key-file ~{if defined(GCloud_User_Key_File) then (GCloud_User_Key_File) else "undefined"} \
         --output-format-possibilities sra \
+        --guess-aws-location `# Guess location in case the NCBI goes down, as it has done previously.` \
+        --hide-download-progress `# No sense logging this`\
         -m ~{Download_Method_Order} && \
       /opt/conda/envs/env/bin/time /singlem/bin/singlem pipe \
           --sra-files ~{SRA_accession_num}.sra \
-          --archive_otu_table ~{SRA_accession_num}.unannotated.singlem.json --threads 1 \
-          --diamond-prefilter \
+          --archive_otu_table ~{SRA_accession_num}.unannotated.singlem.json \
+          --threads 1 \
           --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' \
           --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
           --min_orf_length 72 \
@@ -82,7 +84,7 @@ task singlem_gather {
     memory: ram_str
     disks: disk_size_str
     cpu: 1
-    preemptible: preemptible_tries
+    preemptible: if (metagenome_size_in_gbp > 100) then 0 else 3
     noAddress: false
   }
   output {
@@ -94,6 +96,7 @@ task singlem_gather {
 task singlem_taxonomy {
   input {
     Int metagenome_size_in_GB
+    Int metagenome_size_in_gbp
     String dockerImage
     String SRA_accession_num
     File unannotated_archive
@@ -119,7 +122,7 @@ task singlem_taxonomy {
     memory: "3.5 GiB"
     disks: disk_size_str
     cpu: 1
-    preemptible: if (metagenome_size_in_GB > 100) then 0 else 3
+    preemptible: if (metagenome_size_in_gbp > 100) then 0 else 3
     noAddress: false
   }
   output {
