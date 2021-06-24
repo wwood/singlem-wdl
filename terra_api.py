@@ -65,7 +65,7 @@ def set_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace
     response = requests.put(myUrl, data=json.dumps(data), headers=head)
     return response
 
-def get_workflow_config(methodConfigNamespace, methodConfigName, methodConfigVersion):
+def get_method(methodConfigNamespace, methodConfigName, methodConfigVersion):
 
     myUrl = f'https://api.firecloud.org/api/methods/{methodConfigNamespace}/{methodConfigName}/{methodConfigVersion}?onlyPayload=false'
     
