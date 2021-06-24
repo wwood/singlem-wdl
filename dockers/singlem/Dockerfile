@@ -22,14 +22,14 @@ RUN cp KWAGE/sracat/sracat /usr/bin -v
 RUN sracat -h
 
 # Kingfisher
-RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 87acece
+RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 81dfd4d
 RUN ln -s `pwd`/kingfisher-download/bin/kingfisher /usr/bin -v
 RUN bash -c 'source activate env && pip install bird_tool_utils'
 RUN bash -c 'source activate env && kingfisher -h'
 
 # NOTE: The following 2 hashes should be changed in sync.
 RUN git clone https://github.com/wwood/singlem && cd singlem && git checkout 4ba1c49
-RUN echo '__version__ = "0.13.2-dev25.4ba1c49"' >singlem/singlem/version.py
+RUN echo '__version__ = "0.13.2-dev26.4ba1c49"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
