@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 
 def prepare_header():
     token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
