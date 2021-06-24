@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 def prepare_header():
     token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
@@ -72,4 +73,19 @@ def get_method(methodConfigNamespace, methodConfigName, methodConfigVersion):
     head = prepare_header()
 
     response = requests.get(myUrl, headers=head)
+    return response
+
+def import_entity_from_tsv(file_path):
+    token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
+
+    url = 'https://api.firecloud.org/api/workspaces/firstterrabillingaccount/singlem-pilot-2/flexibleImportEntities'
+
+    m = MultipartEncoder(
+        fields={"workspaceNamespace": "firstterrabillingaccount","workspaceName": "singlem-pilot-2",
+                'entities': ('filename', open(file_path, 'rb'), 'text/plain')}
+        )
+
+    head = {'accept': '*/*','Content-Type': m.content_type, 'Authorization': 'Bearer {}'.format(token)}
+
+    response = requests.post(url, data=m, headers=head)
     return response
