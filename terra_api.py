@@ -28,6 +28,15 @@ def submit_workflow(workspaceNamespace, workspaceName, submissionEntityType, sub
     response = requests.post(myUrl, data=json.dumps(data), headers=head)
     return response
 
+def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace, methodConfigName):
+    
+    myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodConfigNamespace}/{methodConfigName}'
+
+    head = prepare_header()
+
+    response = requests.get(myUrl, headers=head)
+    return response
+
 def set_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace, methodConfigName, methodConfigVersion, methodConfigRootEntityType):
 
     myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodConfigNamespace}/{methodConfigName}'
