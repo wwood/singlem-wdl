@@ -37,7 +37,7 @@ def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace
     response = requests.get(myUrl, headers=head)
     return response
 
-def set_workflow_config(workspaceNamespace, workspaceName, methodConfigVersion, methodNamespace, methodName, methodName, methodVersion, methodConfigRootEntityType):
+def set_workflow_config(workspaceNamespace, workspaceName, methodNamespace, methodName, methodVersion, methodConfigRootEntityType, methodConfigVersion):
 
     myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodNamespace}/{methodName}'
 
