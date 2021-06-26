@@ -53,7 +53,7 @@ def set_workflow_config(workspaceNamespace, workspaceName, methodNamespace, meth
         "SingleM_SRA.Download_Method_Order": "\"aws-http prefetch\"",
         "SingleM_SRA.AWS_User_Key_Id": ""
       },
-      "methodConfigVersion": {methodConfigVersion},
+      "methodConfigVersion": methodConfigVersion,
       "methodRepoMethod": {
         "methodName": methodName,
         "methodVersion": methodVersion,
