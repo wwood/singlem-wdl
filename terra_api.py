@@ -37,9 +37,9 @@ def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace
     response = requests.get(myUrl, headers=head)
     return response
 
-def set_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace, methodConfigName, methodConfigVersion, methodConfigRootEntityType):
+def set_workflow_config(workspaceNamespace, workspaceName, methodConfigVersion, methodNamespace, methodName, methodName, methodVersion, methodConfigRootEntityType):
 
-    myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodConfigNamespace}/{methodConfigName}'
+    myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodNamespace}/{methodName}'
 
     data = {
       "deleted": False,
@@ -55,14 +55,14 @@ def set_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace
       },
       "methodConfigVersion": {methodConfigVersion},
       "methodRepoMethod": {
-        "methodName": methodConfigName,
-        "methodVersion": methodConfigVersion,
-        "methodNamespace": methodConfigNamespace,
-        "methodUri": f"agora://{methodConfigNamespace}/{methodConfigName}/{methodConfigVersion}",
+        "methodName": methodName,
+        "methodVersion": methodVersion,
+        "methodNamespace": methodNamespace,
+        "methodUri": f"agora://{methodNamespace}/{methodName}/{methodVersion}",
         "sourceRepo": "agora"
       },
-      "name": methodConfigName,
-      "namespace": methodConfigNamespace,
+      "name": methodName,
+      "namespace": methodNamespace,
       "outputs": {
         "SingleM_SRA.SingleM_tables": "this.singlem_table"
       },
