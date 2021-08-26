@@ -6,6 +6,7 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 def prepare_header():
     token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
     head = {'accept': '*/*',"Content-Type": "application/json", 'Authorization': 'Bearer {}'.format(token)}
+    print(head)
     return head
     
 
