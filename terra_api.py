@@ -3,6 +3,21 @@ import requests
 import json
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+def pretty_print_POST(req):
+    """
+    At this point it is completely built and ready
+    to be fired; it is "prepared".
+    However pay attention at the formatting used in 
+    this function because it is programmed to be pretty 
+    printed and may differ from the actual request.
+    """
+    print('{}\n{}\r\n{}\r\n\r\n{}'.format(
+        '-----------START-----------',
+        req.method + ' ' + req.url,
+        '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        req.body,
+    ))
+
 def prepare_header():
     token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
     head = {'accept': '*/*',"Content-Type": "application/json", 'Authorization': 'Bearer {}'.format(token)}
@@ -34,6 +49,19 @@ def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace
     myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodConfigNamespace}/{methodConfigName}'
 
     head = prepare_header()
+    
+    
+    req = requests.Request('GET', myUrl, headers=head)
+    prepared = req.prepare()
+    pretty_print_POST(prepared)
+    s = requests.Session()
+    response = s.send(prepared)
+    print(response)
+
+    #response = requests.get(myUrl, headers=head)
+    #print('terra api request submitted')
+    return response
+    
 
     response = requests.get(myUrl, headers=head)
     return response
