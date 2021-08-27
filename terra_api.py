@@ -18,8 +18,9 @@ def pretty_print_POST(req):
         req.body,
     ))
 
-def prepare_header():
-    token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
+def prepare_header(token=None):
+    if token is not None:
+        token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
     head = {'accept': '*/*',"Content-Type": "application/json", 'Authorization': 'Bearer {}'.format(token)}
     print(head)
     return head
@@ -44,11 +45,11 @@ def submit_workflow(workspaceNamespace, workspaceName, submissionEntityType, sub
     response = requests.post(myUrl, data=json.dumps(data), headers=head)
     return response
 
-def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace, methodConfigName):
+def get_workflow_config(workspaceNamespace, workspaceName, methodConfigNamespace, methodConfigName, token=None):
     
     myUrl = f'https://api.firecloud.org/api/workspaces/{workspaceNamespace}/{workspaceName}/method_configs/{methodConfigNamespace}/{methodConfigName}'
 
-    head = prepare_header()
+    head = prepare_header(token)
     
     
     req = requests.Request('GET', myUrl, headers=head)
