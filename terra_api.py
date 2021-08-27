@@ -19,7 +19,7 @@ def pretty_print_POST(req):
     ))
 
 def prepare_header(token=None):
-    if token is not None:
+    if token == None:
         token = os.popen('gcloud auth --account=terra-api@maximal-dynamo-308105.iam.gserviceaccount.com print-access-token').read().rstrip()
     head = {'accept': '*/*',"Content-Type": "application/json", 'Authorization': 'Bearer {}'.format(token)}
     print(head)
