@@ -10,7 +10,7 @@ workflow SingleM_SRA {
     Boolean GCloud_Paid
     String? AWS_User_Key_Id
     String? AWS_User_Key
-    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev26.4ba1c49"
+    String singlem_docker = "gcr.io/maximal-dynamo-308105/singlem:0.13.2-dev29.64783d2"
   }
   call singlem_gather {
     input:
@@ -71,13 +71,8 @@ task singlem_gather {
           --sra-files ~{SRA_accession_num}.sra \
           --archive_otu_table ~{SRA_accession_num}.unannotated.singlem.json \
           --threads 1 \
-          --diamond-prefilter-performance-parameters '--block-size 0.5 --target-indexed -c1 --min-orf 24' \
-          --diamond-prefilter-db /pkgs/53_db2.0-attempt4.0.60.faa.dmnd \
-          --min_orf_length 72 \
-          --singlem-packages `ls -d /pkgs/*spkg` \
-          --diamond-package-assignment \
+          --singlem-metapackage /mpkg \
           --no-assign-taxonomy \
-          --working-directory-tmpdir
   }
   runtime {
     docker: dockerImage
@@ -86,6 +81,7 @@ task singlem_gather {
     cpu: 1
     preemptible: if (metagenome_size_in_gbp > 100) then 0 else 3
     noAddress: false
+    cpuPlatform: "AMD Rome"
   }
   output {
     File unannotated_archive = "~{SRA_accession_num}.unannotated.singlem.json"
@@ -109,12 +105,9 @@ task singlem_taxonomy {
 
   command {
     /opt/conda/envs/env/bin/time /singlem/bin/singlem renew \
-      --min_orf_length 72 \
       --input-archive-otu-table ~{unannotated_archive} \
-      --singlem-packages `ls -d /pkgs/*spkg` \
+      --singlem-packages `ls -d /mpkg/*spkg` \
       --archive-otu-table ~{SRA_accession_num}.singlem.json \
-      --assignment-method diamond \
-      --diamond-taxonomy-assignment-performance-parameters '--block-size 0.5 --target-indexed -c1' \
         && gzip ~{SRA_accession_num}.singlem.json
   }
   runtime {
@@ -124,6 +117,7 @@ task singlem_taxonomy {
     cpu: 1
     preemptible: if (metagenome_size_in_gbp > 100) then 0 else 3
     noAddress: false
+    cpuPlatform: "AMD Rome"
   }
   output {
     File singlem_otu_table_gz = "~{SRA_accession_num}.singlem.json.gz"
