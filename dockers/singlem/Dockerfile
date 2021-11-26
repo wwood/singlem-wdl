@@ -13,13 +13,13 @@ RUN echo "source activate env" > ~/.bashrc
 ENV PATH /opt/conda/envs/env/bin:$PATH
 
 # Kingfisher
-RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout aa8cb8ae
+RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 5988edd
 RUN ln -s `pwd`/kingfisher-download/bin/kingfisher /usr/bin -v
 RUN bash -c 'source activate env && kingfisher -h'
 
 # NOTE: The following 2 hashes should be changed in sync.
-RUN rm -rf singlem && git clone https://github.com/wwood/singlem && cd singlem && git checkout 64783d2
-RUN echo '__version__ = "0.13.2-dev29.64783d2"' >singlem/singlem/version.py
+RUN rm -rf singlem && git clone https://github.com/wwood/singlem && cd singlem && git checkout e97d171
+RUN echo '__version__ = "0.13.2-dev30.e97d171"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
