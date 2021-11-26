@@ -1,25 +1,25 @@
-FROM continuumio/miniconda3
+FROM mambaorg/micromamba:0.17.0
 
-ENV USER=root
-RUN apt update && \
-      apt-get install -y curl unzip && \
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
-      unzip awscliv2.zip && \
-      ./aws/install
+# This dockerfile uses cached mounts, so to build use e.g.
+# singlem-wdl-local/dockers/singlem$ DOCKER_BUILDKIT=1 docker build .
 
 # Don't need all of the dependencies of singlem, because only pipe is going to be run.
-RUN conda create -c conda-forge -c bioconda -c defaults -n env python diamond=2.0.13 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time sra-tools google-cloud-sdk pigz sracat bird_tool_utils_python requests aria2
-RUN echo "source activate env" > ~/.bashrc
-ENV PATH /opt/conda/envs/env/bin:$PATH
+RUN --mount=type=cache,target=/opt/conda/pkgs micromamba install -y -c conda-forge -c bioconda -c defaults -n base \
+       python diamond=2.0.13 tempdir biopython hmmer orfm mfqe extern graftm krona pplacer time sra-tools google-cloud-sdk pigz sracat bird_tool_utils_python requests aria2 && \
+    micromamba clean --all --yes
+
+# RUN echo "source activate base" > ~/.bashrc
+# ENV PATH ~/bin:$PATH
 
 # Kingfisher
+RUN --mount=type=cache,target=/opt/conda/pkgs micromamba install -y -c conda-forge -c bioconda -c defaults -n base git
 RUN git clone https://github.com/wwood/kingfisher-download && cd kingfisher-download && git checkout 5988edd
-RUN ln -s `pwd`/kingfisher-download/bin/kingfisher /usr/bin -v
-RUN bash -c 'source activate env && kingfisher -h'
+RUN ln -s `pwd`/kingfisher-download/bin/kingfisher /opt/conda/bin/ -v
+RUN bash -c 'source ~/.bashrc && kingfisher -h'
 
 # NOTE: The following 2 hashes should be changed in sync.
 RUN rm -rf singlem && git clone https://github.com/wwood/singlem && cd singlem && git checkout e97d171
-RUN echo '__version__ = "0.13.2-dev30.e97d171"' >singlem/singlem/version.py
+RUN echo '__version__ = "0.13.2-dev31.e97d171"' >singlem/singlem/version.py
 
 # Remove bundled singlem packages
 RUN rm -rfv singlem/singlem/data singlem/.git singlem/test singlem/appraise_plot.png
